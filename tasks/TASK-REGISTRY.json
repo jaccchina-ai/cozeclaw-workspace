@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "createdAt": "2026-03-02T00:00:00.000Z",
+    "lastUpdated": "2026-03-02T00:00:00.000Z",
+    "description": "OpenClaw Task Registry - 任务注册表，记录所有任务的详细信息、版本历史和状态",
+    "conflictResolution": "当聊天内容与 Task Registry 发生冲突时，以 Task Registry 为准"
+  },
+  "versioningRules": {
+    "format": "MAJOR.MINOR.PATCH",
+    "major": "重大架构变更或目标重构",
+    "minor": "新增功能或逻辑优化",
+    "patch": "Bug修复或小调整",
+    "examples": [
+      "1.0.0 -> 1.0.1: 修复选股逻辑bug",
+      "1.0.0 -> 1.1.0: 新增风控指标",
+      "1.0.0 -> 2.0.0: 重构整个选股策略"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "T01",
+      "name": "A股龙头选股策略",
+      "version": "1.0.0",
+      "status": "active",
+      "priority": "high",
+      "category": "quantitative-trading",
+      "createdAt": "2026-03-02T00:00:00.000Z",
+      "updatedAt": "2026-03-02T00:00:00.000Z",
+      "owner": "user",
+      "objective": {
+        "summary": "基于涨停板策略的A股龙头股选股系统，在交易日T日晚间和T+1日早盘进行两次筛选，推荐最有望继续涨停的股票",
+        "workflow": [
+          {
+            "step": 1,
+            "name": "交易日判断",
+            "description": "根据交易日历判断某一天是否是交易日",
+            "timing": "任意时间",
+            "dataRequired": ["交易日历"]
+          },
+          {
+            "step": 2,
+            "name": "T日晚间初步筛选",
+            "description": "T日晚上8:00对当日涨停股做初步评分，筛选出有望在T+1日继续涨停概率最高的10只股票作为观察标的",
+            "timing": "T日 20:00",
+            "dataRequired": ["涨停股列表", "涨停原因", "板块信息", "资金流向"],
+            "outputs": ["10只观察标的", "判断理由", "热门板块分析", "宏观风险分析"]
+          },
+          {
+            "step": 3,
+            "name": "T+1日早盘最终推荐",
+            "description": "T+1日早上9:25获取竞价数据后对T日晚间选出的观察标的做进一步分析，结合大盘风险、宏观风险等给出当天继续涨停概率最高的3只股票",
+            "timing": "T+1日 09:25",
+            "dataRequired": ["竞价数据", "大盘走势", "板块热度", "资金动向"],
+            "outputs": ["3只推荐股票", "仓位建议", "判断理由", "风险提示"]
+          }
+        ]
+      },
+      "configuration": {
+        "tradingCalendar": {
+          "source": "tushare",
+          "apiEndpoint": "trade_cal",
+          "cacheEnabled": true,
+          "cacheExpiry": "1d"
+        },
+        "eveningScreening": {
+          "time": "20:00",
+          "limitStocks": 10,
+          "timezone": "Asia/Shanghai"
+        },
+        "morningSelection": {
+          "time": "09:25",
+          "finalPicks": 3,
+          "timezone": "Asia/Shanghai"
+        }
+      },
+      "dataRequirements": {
+        "pending": [
+          "API数据接口详细文档",
+          "选股逻辑详细说明",
+          "风控建议具体指标",
+          "选股策略回测进化建议"
+        ],
+        "implemented": [
+          "Tushare金融数据接口（已配置）"
+        ]
+      },
+      "integrations": {
+        "primary": "tushare-finance",
+        "secondary": [
+          "proactive-agent",
+          "notification"
+        ]
+      },
+      "versionHistory": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-02T00:00:00.000Z",
+          "changes": [
+            "初始版本",
+            "定义基本工作流程",
+            "设定T日晚间和T+1日早盘两阶段筛选机制"
+          ],
+          "author": "user"
+        }
+      ],
+      "documentation": {
+        "main": "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/README.md",
+        "api": "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/api-spec.md",
+        "logic": "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection-logic.md",
+        "riskControl": "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/risk-control.md",
+        "backtest": "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/backtest-evolution.md"
+      },
+      "tags": ["A股", "涨停板", "龙头股", "短线交易", "量化选股", "竞价策略"],
+      "notes": [
+        "等待用户提供：API数据接口、选股逻辑、风控建议、回测进化建议等详细内容",
+        "此策略为短线交易策略，风险较高，需严格执行风控",
+        "建议结合 proactive-agent 技能实现定时自动执行"
+      ]
+    }
+  ],
+  "statistics": {
+    "totalTasks": 1,
+    "activeTasks": 1,
+    "completedTasks": 0,
+    "archivedTasks": 0,
+    "byCategory": {
+      "quantitative-trading": 1
+    },
+    "byPriority": {
+      "high": 1,
+      "medium": 0,
+      "low": 0
+    }
+  }
+}
