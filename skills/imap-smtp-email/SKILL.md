@@ -43,6 +43,15 @@ To use this skill, you need your email provider's IMAP and SMTP settings:
 **Custom Server**:
 - Use your provider's IMAP/SMTP settings
 
+**Aliyun Enterprise Email (阿里云企业邮箱)**:
+- IMAP Server: `imap.qiye.aliyun.com`
+- IMAP Port: `993` (SSL)
+- SMTP Server: `smtp.qiye.aliyun.com`
+- SMTP Port: `465` (SSL)
+- POP Server: `pop.qiye.aliyun.com`
+- POP Port: `995` (SSL)
+- Authentication: Required (邮箱地址 + 密码/Token)
+
 ### Security Notes
 
 ⚠️ **Important**: For Gmail and some providers, you may need to:

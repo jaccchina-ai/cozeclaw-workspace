@@ -28,24 +28,86 @@
 
 ### 双技能协作规则
 
+**核心原则**：遵循 `AGENTS.md` 定义的协作机制，避免重复记录。
+
 **与 self-improvement 的协调**:
-- 简单偏好 → 只写 SESSION-STATE.md
-- 认知纠正 → SESSION-STATE.md + LEARNINGS.md
-- 方法论决策 → SESSION-STATE.md + LEARNINGS.md
+
+| 纠正类型 | Proactive Agent | Self-Improvement |
+|---------|-----------------|------------------|
+| 简单偏好 ("用蓝色") | ✅ 记录 SESSION-STATE.md | ❌ 不记录 |
+| 认知纠正 ("你理解错了") | ✅ 记录 SESSION-STATE.md | ✅ 记录 LEARNINGS.md |
+| 操作纠正 ("命令错了") | ❌ 不记录 | ✅ 记录 ERRORS.md |
+
+| 决策类型 | Proactive Agent | Self-Improvement |
+|---------|-----------------|------------------|
+| 即时决策 ("用这个方案") | ✅ 记录 SESSION-STATE.md | ❌ 不记录 |
+| 方法论决策 ("以后都这样") | ✅ 记录 SESSION-STATE.md | ✅ 记录 LEARNINGS.md |
+
+**记录前必做**：搜索已有条目，避免重复记录
 
 ---
+
+## 🧠 MoA 增强版分析调用
+
+**核心规则**：当 Task 功能实现受阻、API 限制、逻辑难题时，调用 MoA 进行多模型协作分析。
+
+### 触发场景
+
+| 场景 | 优先级 |
+|------|--------|
+| Task 功能实现受阻 | 🔴 高 |
+| API 限制/配额问题 | 🔴 高 |
+| 逻辑难题/架构决策 | 🔴 高 |
+| Task 定期复盘 | 🟡 中 |
+| 寻求功能增强方向 | 🟡 中 |
+
+### MoA 输出格式要求
+
+调用 MoA 时，要求输出包含：
+1. **问题根因分析** - 深入分析根本原因
+2. **3~5 个可行方案** - 每个方案包含优缺点
+3. **推荐实施步骤** - 具体执行计划
+
+### 可用模型组合
+
+| 层级 | 模型 | 职责 |
+|------|------|------|
+| Proposers | deepseek-r1, kimi-k2.5, glm-5 | 生成多样化方案 |
+| Proposers | qwen-3.5-72b, gemini-3.0-pro, gpt-4o | 多视角补充 |
+| Reviewers | deepseek-v3, doubao-seed | 评审和批判 |
+| Synthesizer | kimi-k2.5 | 综合输出 |
+
+详细规则见 `AGENTS.md` 的 "MoA 增强版分析调用规则" 章节。
+
+---
+
+
+
+
+
+
+
 
 ## Current Task
 
 **T01: A股龙头选股策略系统**
 
-状态: 等待用户提供详细配置
-- [ ] API数据接口文档
-- [ ] 选股逻辑说明
-- [ ] 风控建议
-- [ ] 回测进化建议
+状态: T日选股完成
+- [x] T日(20260309)选股完成
+- [ ] T+1竞价阶段选股
 
----
+**最新选股结果 (20260309)**:
+
+1. 600851.SH 海欣股份 - 得分: 59.8 - 化学制药
+2. 600268.SH 国电南自 - 得分: 57.4 - 电网设备
+3. 002445.SZ 中南文化 - 得分: 57.0 - 通用设备
+4. 002903.SZ 宇环数控 - 得分: 57.0 - 通用设备
+5. 601789.SH 宁波建工 - 得分: 56.0 - 房屋建设
+6. 002068.SZ 黑猫股份 - 得分: 55.4 - 橡胶
+7. 003035.SZ 南网能源 - 得分: 54.2 - 电力
+8. 000066.SZ 中国长城 - 得分: 53.8 - 计算机设
+9. 002730.SZ 电光科技 - 得分: 53.0 - 专用设备
+10. 002575.SZ 群兴玩具 - 得分: 52.6 - 文娱用品
 
 ## Critical Details
 
@@ -76,6 +138,13 @@
 | **AI模型** | OpenRouter, Together AI, DeepSeek, GLM, Kimi, Gemini, ChatGPT |
 | **版本控制** | GitHub |
 | **通讯** | 飞书, 钉钉, Email |
+
+### Agent 通讯信息
+| 类型 | 值 |
+|------|-----|
+| **Email** | jarvis@jaccoffice.com |
+| **Provider** | 阿里云企业邮箱 |
+| **凭证文件** | /workspace/projects/.email-credentials.json |
 
 ### 沟通原则
 - **先结论后论述**: 所有回复先给出明确结论
@@ -114,6 +183,16 @@
 | 2026-03-07 | ONBOARDING 完成 | ✅ 已完成 |
 | 2026-03-07 | 双技能协作机制建立 | ✅ 已配置 |
 | 2026-03-07 | Onboarding Configuration 完善 | ✅ 已完成 |
+| 2026-03-07 | Agent Email 配置 (jarvis@jaccoffice.com) | ✅ 已验证 |
+| 2026-03-07 | GitHub CLI 配置 (jaccchina-ai) | ✅ 已验证 |
+
+### GitHub 配置
+
+| 项目 | 值 |
+|------|-----|
+| **账户** | jaccchina-ai |
+| **仓库** | cozeclaw-workspace |
+| **Token Scopes** | gist, read:org, repo, workflow |
 
 ---
 
@@ -164,4 +243,4 @@
 ---
 
 ## Last Updated
-**Timestamp**: 2026-03-07T00:00:00.000Z
+**Timestamp**: 2026-03-09T05:00:00.000Z

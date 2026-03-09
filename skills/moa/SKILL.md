@@ -33,7 +33,7 @@ Use MOA when:
 ```
 User Query
     ↓
-Layer 1: Proposers (3-4 models)
+Layer 1: Proposers (3-6 models)
     ↓  (Generate diverse responses)
 Layer 2: Reviewers (2-3 models)
     ↓  (Critique and improve)
@@ -48,8 +48,11 @@ Use models from your configured providers:
 - **coze/kimi-k2-5-260127** - Strong reasoning
 - **coze/deepseek-r1-250528** - Logical analysis
 - **coze/deepseek-v3-2-251201** - General purpose
-- **coze/glm-4-7-251222** - Chinese language
+- **coze/glm-5** - Chinese language
 - **coze/doubao-seed-1-8-251228** - Creative tasks
+- **openrouter/qwen/qwen-3.5-72b-instruct** - Qwen 3.5 72B (diverse perspectives)
+- **openrouter/google/gemini-3.0-pro** - Gemini 3.0 Pro (multimodal)
+- **openrouter/openai/gpt-4o** - GPT-4o (balanced reasoning)
 
 ### Usage Pattern
 
@@ -65,10 +68,13 @@ For complex queries, the agent will:
 
 Configure which models to use in each layer:
 
-**Proposers (Layer 1)**:
+**Proposers (Layer 1)** - Diverse perspectives for problem solving:
 - `coze/deepseek-r1-250528` - Deep reasoning
 - `coze/kimi-k2-5-260127` - Contextual understanding
-- `coze/glm-4-7-251222` - Alternative perspective
+- `coze/glm-5` - Chinese language expertise
+- `openrouter/qwen/qwen-3.5-72b-instruct` - Alternative perspective (Qwen 3.5)
+- `openrouter/google/gemini-3.0-pro` - Multimodal analysis (Gemini 3.0 Pro)
+- `openrouter/openai/gpt-4o` - Balanced reasoning (GPT-4o)
 
 **Reviewers (Layer 2)**:
 - `coze/deepseek-v3-2-251201` - Critical analysis
