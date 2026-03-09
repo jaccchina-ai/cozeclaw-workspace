@@ -436,22 +436,24 @@ class TDaySelectionEngine:
 例如：{{"000001.SZ": 85, "000002.SZ": 72, ...}}
 """
             
-            # 创建任务
-            task_id = client.create_task(prompt)
+            # 创建任务 - 使用 messages 传递提示词
+            messages = [{"role": "user", "content": prompt}]
+            task_id = client.create_task(output_prompt="请分析这些涨停股票，预测明日继续涨停的概率", messages=messages)
             print(f"   任务ID: {task_id}")
             
             # 等待结果
             import time
-            max_wait = 60  # 最多等待60秒
+            max_wait = 180  # 最多等待180秒（Deep Research需要较长时间）
             start_time = time.time()
             
             while time.time() - start_time < max_wait:
                 result = client.query_task(task_id)
+                print(f"   状态: {result.status} (已等待 {time.time() - start_time:.0f}秒)")
                 
                 if result.status == "completed":
                     # 解析结果
                     answer = result.answer or result.summary or ""
-                    print(f"   Unifuncs 分析完成")
+                    print(f"   Unifuncs 分析完成，答案长度: {len(answer)}")
                     
                     # 尝试从回答中提取JSON
                     import re
