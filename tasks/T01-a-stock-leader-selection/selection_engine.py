@@ -105,14 +105,14 @@ class TDaySelectionEngine:
             top_for_analysis = scored_stocks[:min(20, len(scored_stocks))]
             unifuncs_scores = self._get_unifuncs_scores(top_for_analysis, date)
             
-            # 更新评分结果
+            # 更新评分结果 - Unifuncs推荐的股票直接加10分，不赋予权重
             for stock in scored_stocks:
                 ts_code = stock['ts_code']
                 if ts_code in unifuncs_scores:
                     stock['unifuncs_recommended'] = True
-                    stock['sentiment_score'] = unifuncs_scores[ts_code]
-                    # 更新总分（舆情分析附加分）
-                    stock['total_score'] += unifuncs_scores[ts_code] * 0.6  # 6%权重
+                    stock['sentiment_score'] = unifuncs_scores[ts_code]  # 10分
+                    # 直接加10分，不乘以权重
+                    stock['total_score'] += unifuncs_scores[ts_code]  # 直接加10分
         
         # 8. 重新排序（考虑舆情分析附加分后）
         scored_stocks.sort(key=lambda x: x['total_score'], reverse=True)
@@ -417,33 +417,15 @@ class TDaySelectionEngine:
         try:
             client = UnifuncsClient()
             
-            # 构建提示词
-            stock_list = "\n".join([
-                f"- {s['ts_code']} {s['stock_name']} (得分: {s['total_score']:.1f})"
-                for s in stocks[:10]  # 只分析前10只
-            ])
+            # 创建任务 - 按照 SKILL.md 推荐的方式调用
+            output_prompt = "今日所有涨停股中，下一个交易日继续涨停概率最大的三个股票是什么？"
             
-            prompt = f"""今天是{date}，以下是今日涨停股票中评分最高的10只：
-
-{stock_list}
-
-请分析这些股票，预测哪3只股票在下一个交易日继续涨停的概率最大。
-对于每只股票，请给出一个0-100的涨停概率分数，分数越高表示概率越大。
-
-请以JSON格式返回结果，格式如下：
-{{"股票代码": 概率分数, ...}}
-
-例如：{{"000001.SZ": 85, "000002.SZ": 72, ...}}
-"""
-            
-            # 创建任务 - 使用 messages 传递提示词
-            messages = [{"role": "user", "content": prompt}]
-            task_id = client.create_task(output_prompt="请分析这些涨停股票，预测明日继续涨停的概率", messages=messages)
+            task_id = client.create_task(output_prompt=output_prompt)
             print(f"   任务ID: {task_id}")
             
-            # 等待结果
+            # 等待结果 - 隔一段时间查询任务
             import time
-            max_wait = 180  # 最多等待180秒（Deep Research需要较长时间）
+            max_wait = 180  # 最多等待180秒
             start_time = time.time()
             
             while time.time() - start_time < max_wait:
@@ -455,25 +437,13 @@ class TDaySelectionEngine:
                     answer = result.answer or result.summary or ""
                     print(f"   Unifuncs 分析完成，答案长度: {len(answer)}")
                     
-                    # 尝试从回答中提取JSON
-                    import re
-                    json_match = re.search(r'\{[^}]+\}', answer)
-                    if json_match:
-                        try:
-                            data = json.loads(json_match.group())
-                            for code, score in data.items():
-                                # 将0-100映射到0-10
-                                scores[code] = min(10, max(0, float(score) / 10))
-                        except:
-                            pass
-                    
-                    # 如果没有解析到JSON，手动查找提及的股票
-                    if not scores:
-                        for s in stocks[:10]:
-                            ts_code = s['ts_code']
-                            stock_name = s['stock_name']
-                            if ts_code in answer or stock_name in answer:
-                                scores[ts_code] = 8  # 被提及的股票给予8分
+                    # 解析推荐的3只股票 - 直接加10分，不赋予权重
+                    for s in stocks:
+                        ts_code = s['ts_code']
+                        stock_name = s['stock_name']
+                        if ts_code in answer or stock_name in answer:
+                            scores[ts_code] = 10  # Unifuncs推荐的股票直接加10分
+                            print(f"   🤖 Unifuncs推荐: {ts_code} {stock_name}")
                     
                     break
                     
