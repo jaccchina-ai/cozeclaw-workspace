@@ -1,0 +1,91 @@
+[2026-04-03 16:10:12] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:12] [INFO] [t01.task.track] Cron任务启动: track
+[2026-04-03 16:10:12] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:12] [INFO] [t01.task.track] 🚀 执行结果跟踪任务...
+[2026-04-03 16:10:15] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:15] [INFO] [t01.task.track] T01 结果跟踪任务启动 - 2026-04-03 16:10:15.088387
+[2026-04-03 16:10:15] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:15] [INFO] [t01.task.track] 跟踪日期: T日=20260401, T+1日=20260402, T+2日=20260403
+[2026-04-03 16:10:15] [INFO] [t01.task.track] 📊 获取到 3 只 T+1 竞价推荐股票:
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    1. 002639.SZ 雪人集团 - 得分: 70.28
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    2. 300436.SZ 广生堂 - 得分: 69.11
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    3. 002923.SZ 润都股份 - 得分: 68.59
+[2026-04-03 16:10:15] [INFO] [t01.task.track] 📦 获取到 47 只股票的 T日因子评分
+[2026-04-03 16:10:15] [INFO] [t01.task.track] 📦 获取到 10 只股票的 T+1 竞价数据
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    ✅ 002639.SZ 雪人集团: 买入19.20 -> 卖出19.80, 收益3.13%
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    ✅ 300436.SZ 广生堂: 买入121.79 -> 卖出128.05, 收益5.14%
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    ❌ 002923.SZ 润都股份: 买入18.80 -> 卖出15.62, 收益-16.91%
+[2026-04-03 16:10:15] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:15] [INFO] [t01.task.track] 📈 T+1 竞价选股 T+2 收益统计 (20260402)
+[2026-04-03 16:10:15] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    跟踪股票数: 3
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    盈利 (>3%): 2 只
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    胜率: 66.7%
+[2026-04-03 16:10:15] [INFO] [t01.task.track]    平均收益率: -2.88%
+[2026-04-03 16:10:15] [INFO] [t01.task.track] ============================================================
+[2026-04-03 16:10:15] [INFO] [t01.task.track] ✅ 跟踪结果已保存到数据库
+[2026-04-03 16:10:15] [ERROR] [t01.task.track] ⚠️ 保存机器学习数据失败: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ml_training_records_pkey"
+DETAIL:  Key (id)=(1) already exists.
+
+[SQL: INSERT INTO ml_training_records (t_day, t1_day, t2_day, ts_code, stock_name, t_limit_quality_score, t_seal_ratio_score, t_seal_flow_ratio_score, t_volume_ratio_score, t_turnover_rate_score, t_dragon_tiger_score, t_money_flow_score, t_amount_rank_scor ... 4817 characters truncated ...  sen_counter) ORDER BY sen_counter RETURNING ml_training_records.id, ml_training_records.id AS id__1]
+[parameters: {'t_sector_zt_count__0': 2, 't2_day__0': '20260403', 't_amount_rank_score__0': 2.0, 't_sector_linkage_score__0': 4.375186991869919, 't_seal_ratio_score__0': 4.0, 't_net_buy_amount__0': 230237681.77, 't1_is_weak_to_strong__0': False, 't_money_flow_score__0': 8.0, 't1_open__0': 19.2, 't_sector_heat_score__0': 6.0, 'ts_code__0': '002639.SZ', 't_bias_ma3_score__0': 6.0, 't_seal_flow_ratio__0': 0.0197, 't_day__0': '20260401', 't_turnover_rate__0': 17.82, 'stock_name__0': '雪人集团', 't_total_score__0': 66.78, 't_amount_rank__0': 164, 't1_auction_burst_ratio__0': 0.0298, 't_day_rank__0': None, 't_limit_times__0': 0, 'is_win__0': True, 't2_close__0': 19.8, 't_seal_ratio__0': 0.1104, 'sector__0': '通用设备', 't_turnover_rate_score__0': 8.0, 't1_sector_resonance__0': 2.02, 't1_final_score__0': 70.28, 't_limit_quality_score__0': 5.666666666666667, 't1_auction_volume_ratio__0': 6.71, 't1_auction_score__0': 72.62, 't_volume_ratio_score__0': 10.0, 'created_at__0': datetime.datetime(2026, 4, 3, 16, 10, 15, 589043), 't_sentiment_score__0': 0, 't_main_net_inflow__0': 11288.85, 't_dragon_tiger_score__0': 12.0, 't_bias_ma3__0': 6.09, 't1_auction_turnover__0': 0.56, 't_first_limit_time__0': '14:37:06', 't1_auction_rank__0': 1, 't1_auction_pct_chg__0': 2.02, 't1_auction_price__0': 19.2, 't1_day__0': '20260402', 'return_pct__0': 3.13, 't_volume_ratio__0': 3.08, 'sector_role_label__0': '', 't_seal_flow_ratio_score__0': 4.0, 't_sector_zt_count__1': 6, 't2_day__1': '20260403', 't_amount_rank_score__1': 2.0 ... 41 parameters truncated ... 't_volume_ratio__1': 2.24, 'sector_role_label__1': '', 't_seal_flow_ratio_score__1': 2.0, 't_sector_zt_count__2': 6, 't2_day__2': '20260403', 't_amount_rank_score__2': 2.0, 't_sector_linkage_score__2': 7.180149253731344, 't_seal_ratio_score__2': 8.0, 't_net_buy_amount__2': 0, 't1_is_weak_to_strong__2': False, 't_money_flow_score__2': 5.0, 't1_open__2': 18.8, 't_sector_heat_score__2': 10.0, 'ts_code__2': '002923.SZ', 't_bias_ma3_score__2': 6.0, 't_seal_flow_ratio__2': 0.0258, 't_day__2': '20260401', 't_turnover_rate__2': 3.27, 'stock_name__2': '润都股份', 't_total_score__2': 62.58, 't_amount_rank__2': 164, 't1_auction_burst_ratio__2': 0.3391, 't_day_rank__2': None, 't_limit_times__2': 0, 'is_win__2': False, 't2_close__2': 15.62, 't_seal_ratio__2': 0.7875, 'sector__2': '化学制药', 't_turnover_rate_score__2': 6.0, 't1_sector_resonance__2': 9.05, 't1_final_score__2': 68.59, 't_limit_quality_score__2': 8.666666666666666, 't1_auction_volume_ratio__2': 33.11, 't1_auction_score__2': 72.59, 't_volume_ratio_score__2': 4.0, 'created_at__2': datetime.datetime(2026, 4, 3, 16, 10, 15, 589051), 't_sentiment_score__2': 0, 't_main_net_inflow__2': -3832.05, 't_dragon_tiger_score__2': 5.0, 't_bias_ma3__2': 6.09, 't1_auction_turnover__2': 1.13, 't_first_limit_time__2': '09:36:03', 't1_auction_rank__2': 3, 't1_auction_pct_chg__2': 9.05, 't1_auction_price__2': 18.8, 't1_day__2': '20260402', 'return_pct__2': -16.91, 't_volume_ratio__2': 0.9, 'sector_role_label__2': '', 't_seal_flow_ratio_score__2': 4.0}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2026-04-03 16:10:16] [INFO] [t01.task.track] ✅ 跟踪消息已发送
+[2026-04-03 16:10:16] [INFO] [t01.task.track] ✅ 结果跟踪完成
+[2026-04-03 16:10:16] [INFO] [t01.task.track] ============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 POSTGRES 数据库
+[数据库配置] 连接地址: postgresql://postgres:***@cp-hip-veil-65383f4d.pg5.aidap-global.cn-beijing.volces.com:5432/postgres?sslmode=require
+✅ 监控模块初始化完成
+============================================================
+T01 结果跟踪任务启动 - 2026-04-03 16:10:15.088387
+============================================================
+跟踪日期: T日=20260401, T+1日=20260402, T+2日=20260403
+📊 获取到 3 只 T+1 竞价推荐股票:
+   1. 002639.SZ 雪人集团 - 得分: 70.28
+   2. 300436.SZ 广生堂 - 得分: 69.11
+   3. 002923.SZ 润都股份 - 得分: 68.59
+📦 获取到 47 只股票的 T日因子评分
+📦 获取到 10 只股票的 T+1 竞价数据
+   ✅ 002639.SZ 雪人集团: 买入19.20 -> 卖出19.80, 收益3.13%
+   ✅ 300436.SZ 广生堂: 买入121.79 -> 卖出128.05, 收益5.14%
+   ❌ 002923.SZ 润都股份: 买入18.80 -> 卖出15.62, 收益-16.91%
+============================================================
+📈 T+1 竞价选股 T+2 收益统计 (20260402)
+============================================================
+   跟踪股票数: 3
+   盈利 (>3%): 2 只
+   胜率: 66.7%
+   平均收益率: -2.88%
+============================================================
+✅ 跟踪结果已保存到数据库
+⚠️ 保存机器学习数据失败: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ml_training_records_pkey"
+DETAIL:  Key (id)=(1) already exists.
+
+[SQL: INSERT INTO ml_training_records (t_day, t1_day, t2_day, ts_code, stock_name, t_limit_quality_score, t_seal_ratio_score, t_seal_flow_ratio_score, t_volume_ratio_score, t_turnover_rate_score, t_dragon_tiger_score, t_money_flow_score, t_amount_rank_scor ... 4817 characters truncated ...  sen_counter) ORDER BY sen_counter RETURNING ml_training_records.id, ml_training_records.id AS id__1]
+[parameters: {'t_sector_zt_count__0': 2, 't2_day__0': '20260403', 't_amount_rank_score__0': 2.0, 't_sector_linkage_score__0': 4.375186991869919, 't_seal_ratio_score__0': 4.0, 't_net_buy_amount__0': 230237681.77, 't1_is_weak_to_strong__0': False, 't_money_flow_score__0': 8.0, 't1_open__0': 19.2, 't_sector_heat_score__0': 6.0, 'ts_code__0': '002639.SZ', 't_bias_ma3_score__0': 6.0, 't_seal_flow_ratio__0': 0.0197, 't_day__0': '20260401', 't_turnover_rate__0': 17.82, 'stock_name__0': '雪人集团', 't_total_score__0': 66.78, 't_amount_rank__0': 164, 't1_auction_burst_ratio__0': 0.0298, 't_day_rank__0': None, 't_limit_times__0': 0, 'is_win__0': True, 't2_close__0': 19.8, 't_seal_ratio__0': 0.1104, 'sector__0': '通用设备', 't_turnover_rate_score__0': 8.0, 't1_sector_resonance__0': 2.02, 't1_final_score__0': 70.28, 't_limit_quality_score__0': 5.666666666666667, 't1_auction_volume_ratio__0': 6.71, 't1_auction_score__0': 72.62, 't_volume_ratio_score__0': 10.0, 'created_at__0': datetime.datetime(2026, 4, 3, 16, 10, 15, 589043), 't_sentiment_score__0': 0, 't_main_net_inflow__0': 11288.85, 't_dragon_tiger_score__0': 12.0, 't_bias_ma3__0': 6.09, 't1_auction_turnover__0': 0.56, 't_first_limit_time__0': '14:37:06', 't1_auction_rank__0': 1, 't1_auction_pct_chg__0': 2.02, 't1_auction_price__0': 19.2, 't1_day__0': '20260402', 'return_pct__0': 3.13, 't_volume_ratio__0': 3.08, 'sector_role_label__0': '', 't_seal_flow_ratio_score__0': 4.0, 't_sector_zt_count__1': 6, 't2_day__1': '20260403', 't_amount_rank_score__1': 2.0 ... 41 parameters truncated ... 't_volume_ratio__1': 2.24, 'sector_role_label__1': '', 't_seal_flow_ratio_score__1': 2.0, 't_sector_zt_count__2': 6, 't2_day__2': '20260403', 't_amount_rank_score__2': 2.0, 't_sector_linkage_score__2': 7.180149253731344, 't_seal_ratio_score__2': 8.0, 't_net_buy_amount__2': 0, 't1_is_weak_to_strong__2': False, 't_money_flow_score__2': 5.0, 't1_open__2': 18.8, 't_sector_heat_score__2': 10.0, 'ts_code__2': '002923.SZ', 't_bias_ma3_score__2': 6.0, 't_seal_flow_ratio__2': 0.0258, 't_day__2': '20260401', 't_turnover_rate__2': 3.27, 'stock_name__2': '润都股份', 't_total_score__2': 62.58, 't_amount_rank__2': 164, 't1_auction_burst_ratio__2': 0.3391, 't_day_rank__2': None, 't_limit_times__2': 0, 'is_win__2': False, 't2_close__2': 15.62, 't_seal_ratio__2': 0.7875, 'sector__2': '化学制药', 't_turnover_rate_score__2': 6.0, 't1_sector_resonance__2': 9.05, 't1_final_score__2': 68.59, 't_limit_quality_score__2': 8.666666666666666, 't1_auction_volume_ratio__2': 33.11, 't1_auction_score__2': 72.59, 't_volume_ratio_score__2': 4.0, 'created_at__2': datetime.datetime(2026, 4, 3, 16, 10, 15, 589051), 't_sentiment_score__2': 0, 't_main_net_inflow__2': -3832.05, 't_dragon_tiger_score__2': 5.0, 't_bias_ma3__2': 6.09, 't1_auction_turnover__2': 1.13, 't_first_limit_time__2': '09:36:03', 't1_auction_rank__2': 3, 't1_auction_pct_chg__2': 9.05, 't1_auction_price__2': 18.8, 't1_day__2': '20260402', 'return_pct__2': -16.91, 't_volume_ratio__2': 0.9, 'sector_role_label__2': '', 't_seal_flow_ratio_score__2': 4.0}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+✅ 飞书API消息发送成功 (interactive)
+✅ 跟踪消息已发送
+✅ 结果跟踪完成
+
+[2026-04-03 16:10:16] [INFO] [t01.task.track] ✅ 结果跟踪任务完成
+[2026-04-03 16:10:16] [INFO] [t01.task.track] 任务结束，状态: 成功

@@ -1,0 +1,47 @@
+[2026-03-20 09:25:48] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:25:48] [INFO] [t01.task.t1_auction] Cron任务启动: t1-auction
+[2026-03-20 09:25:48] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:25:48] [INFO] [t01.task.t1_auction] 🚀 执行 T+1 竞价选股任务...
+[2026-03-20 09:25:49] [INFO] [t01.task.t1_auction] ℹ️ 今日无符合竞价选股条件的股票
+[2026-03-20 09:25:49] [INFO] [t01.task.t1_auction] 任务结束，状态: 成功
+[2026-03-20 09:50:17] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:50:17] [INFO] [t01.task.t1_auction] Cron任务启动: t1-auction
+[2026-03-20 09:50:17] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:50:17] [INFO] [t01.task.t1_auction] 🚀 执行 T+1 竞价选股任务...
+[2026-03-20 09:50:18] [ERROR] [t01.task.t1_auction] ❌ 竞价选股失败: 'FileMessenger' object has no attribute '_fmt'
+[2026-03-20 09:50:18] [ERROR] [t01.task.t1_auction] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 59, in run_t1_auction
+    messenger.send_t1_auction_result(stocks, sentiment, date, market_risk)
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/messenger.py", line 662, in send_t1_auction_result
+    message = self._format_t1_auction_message(stocks, sentiment, date, market_risk)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/messenger.py", line 818, in _format_t1_auction_message
+    lines.append(f"\n{emoji} **{stock['ts_code']} {stock['stock_name']}** - 综合得分: {self._fmt(stock.get('final_score', 0))}{wts_mark}")
+                                                                                       ^^^^^^^^^
+AttributeError: 'FileMessenger' object has no attribute '_fmt'
+
+[2026-03-20 09:50:18] [INFO] [t01.task.t1_auction] 任务结束，状态: 失败
+[2026-03-20 09:50:43] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:50:43] [INFO] [t01.task.t1_auction] Cron任务启动: t1-auction
+[2026-03-20 09:50:43] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:50:43] [INFO] [t01.task.t1_auction] 🚀 执行 T+1 竞价选股任务...
+[2026-03-20 09:50:44] [INFO] [t01.task.t1_auction] ✅ 竞价选股完成，共选出 3 只股票
+[2026-03-20 09:50:44] [INFO] [t01.task.t1_auction] 任务结束，状态: 成功
+[2026-03-20 09:56:44] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:56:44] [INFO] [t01.task.t1_auction] Cron任务启动: t1-auction
+[2026-03-20 09:56:44] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 09:56:44] [INFO] [t01.task.t1_auction] 🚀 执行 T+1 竞价选股任务...
+[2026-03-20 09:56:44] [INFO] [t01.task.t1_auction] ✅ 竞价选股完成，共选出 3 只股票
+[2026-03-20 09:56:44] [INFO] [t01.task.t1_auction] 任务结束，状态: 成功
+[2026-03-20 10:03:35] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 10:03:35] [INFO] [t01.task.t1_auction] Cron任务启动: t1-auction
+[2026-03-20 10:03:35] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 10:03:35] [INFO] [t01.task.t1_auction] 🚀 执行 T+1 竞价选股任务...
+[2026-03-20 10:03:35] [INFO] [t01.task.t1_auction] ✅ 竞价选股完成，共选出 3 只股票
+[2026-03-20 10:03:35] [INFO] [t01.task.t1_auction] 任务结束，状态: 成功
+[2026-03-20 10:04:14] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 10:04:14] [INFO] [t01.task.t1_auction] Cron任务启动: t1-auction
+[2026-03-20 10:04:14] [INFO] [t01.task.t1_auction] ============================================================
+[2026-03-20 10:04:14] [INFO] [t01.task.t1_auction] 🚀 执行 T+1 竞价选股任务...
+[2026-03-20 10:04:16] [INFO] [t01.task.t1_auction] ✅ 竞价选股完成，共选出 3 只股票
+[2026-03-20 10:04:16] [INFO] [t01.task.t1_auction] 任务结束，状态: 成功

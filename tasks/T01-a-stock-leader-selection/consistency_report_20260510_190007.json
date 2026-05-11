@@ -1,0 +1,79 @@
+[
+  {
+    "table": "selection_results",
+    "pg_table": "selection_results",
+    "sqlite_table": "selection_results",
+    "pg_count": 492,
+    "sqlite_count": 492,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "factor_scores",
+    "pg_table": "stock_factor_scores",
+    "sqlite_table": "stock_factor_scores",
+    "pg_count": 1667,
+    "sqlite_count": 1667,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "auction_data",
+    "pg_table": "auction_data",
+    "sqlite_table": "auction_data",
+    "pg_count": 290,
+    "sqlite_count": 290,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "market_sentiment",
+    "pg_table": "market_sentiment",
+    "sqlite_table": "market_sentiment",
+    "pg_count": 40,
+    "sqlite_count": 40,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "unifuncs_results",
+    "pg_table": "unifuncs_results",
+    "sqlite_table": "unifuncs_results",
+    "pg_count": 30,
+    "sqlite_count": 30,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "tracked_results",
+    "pg_table": "tracked_results",
+    "sqlite_table": "tracked_results",
+    "pg_count": 78,
+    "sqlite_count": 78,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "ml_training_records",
+    "pg_table": "ml_training_records",
+    "sqlite_table": "ml_training_records",
+    "pg_count": 93,
+    "sqlite_count": 93,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  }
+]

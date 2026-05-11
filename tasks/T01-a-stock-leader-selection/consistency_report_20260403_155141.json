@@ -1,0 +1,16 @@
+[
+  {
+    "table": "factor_scores",
+    "pg_table": "stock_factor_scores",
+    "sqlite_table": "factor_scores",
+    "pg_count": 521,
+    "sqlite_count": -1,
+    "consistent": false,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "error",
+    "errors": [
+      "无法获取至少一个数据库的记录数"
+    ]
+  }
+]

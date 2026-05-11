@@ -1,0 +1,75 @@
+============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 SQLITE 数据库
+[数据库配置] 连接地址: sqlite:////workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/t01_stocks.db
+✅ 监控模块初始化完成
+============================================================
+T01 T+1竞价选股任务启动 - 2026-04-08 09:30:08.711191
+============================================================
+
+============================================================
+T01 龙头战法 - T+1竞价选股引擎
+日期: 20260408
+============================================================
+
+   获取T日(20260407)选股结果...
+   T日初选股票数: 10
+
+📊 批量获取竞价数据...
+   获取到 10/10 只股票的竞价数据
+
+⭐ 竞价评分...
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(14) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(15) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(16) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(17) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(18) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(19) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(20) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(21) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(22) already exists.
+
+[双写] PostgreSQL 保存竞价数据失败: duplicate key value violates unique constraint "auction_data_pkey"
+DETAIL:  Key (id)=(23) already exists.
+
+   ✅ 竞价数据已双写保存 (PG: 0 条, SQLite: 10 条)
+      选中 3 只，过滤 7 只
+
+✅ 竞价选股完成，共选出 3 只股票（评估 3 只，T日初选 10 只，保存 10 只完整数据）
+✅ 飞书API消息发送成功 (interactive)
+✅ 竞价选股完成，共选出 3 只股票

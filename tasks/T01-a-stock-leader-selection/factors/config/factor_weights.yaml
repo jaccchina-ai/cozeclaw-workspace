@@ -1,0 +1,17 @@
+"""
+T01 选股系统 - 因子权重配置
+"""
+
+factor_weights:
+  limit_quality: 12.0       # 涨停质量
+  seal_ratio: 10.0          # 封成比
+  seal_flow_ratio: 12.0     # 封流比
+  volume_ratio: 8.0         # 量比
+  turnover_rate: 8.0        # 真实换手率
+  dragon_tiger: 12.0        # 龙虎榜+北向资金
+  money_flow: 10.0          # 个股资金结构
+  amount_rank: 8.0          # 成交金额排名
+  sector_heat: 8.0          # 热点板块
+  bias_ma3: 6.0             # MA3乖离率(风控)
+  sentiment: 6.0            # 舆情分析(附加)
+  sector_linkage: 10.0      # 板块联动强度

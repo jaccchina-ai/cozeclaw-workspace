@@ -1,0 +1,142 @@
+============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 SQLITE 数据库
+[数据库配置] 连接地址: sqlite:////workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/t01_stocks.db
+✅ 监控模块初始化完成
+============================================================
+T01 T+1竞价选股任务启动 - 2026-04-17 09:28:13.550031
+============================================================
+
+============================================================
+T01 龙头战法 - T+1竞价选股引擎
+日期: 20260417
+============================================================
+
+   获取T日(20260416)选股结果...
+   T日初选股票数: 10
+
+📊 批量获取竞价数据...
+   获取到 10/10 只股票的竞价数据
+
+⭐ 竞价评分...
+❌ T+1竞价选股任务失败: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1486, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1245, in run
+    config = self._load_auction_judgment_config()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+
+
+❌ [ERROR] T+1竞价选股任务失败
+   'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 779, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 741, in main
+    run_t1_auction_task(args.date, send_message=not args.no_message)
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1486, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1245, in run
+    config = self._load_auction_judgment_config()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 SQLITE 数据库
+[数据库配置] 连接地址: sqlite:////workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/t01_stocks.db
+✅ 监控模块初始化完成
+============================================================
+T01 T+1竞价选股任务启动 - 2026-04-17 09:34:24.917467
+============================================================
+
+============================================================
+T01 龙头战法 - T+1竞价选股引擎
+日期: 20260417
+============================================================
+
+   获取T日(20260416)选股结果...
+   T日初选股票数: 10
+
+📊 批量获取竞价数据...
+   获取到 10/10 只股票的竞价数据
+
+⭐ 竞价评分...
+❌ T+1竞价选股任务失败: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1493, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1253, in run
+    top_stocks = self._comprehensive_judgment(scored_stocks, market_risk, config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+
+
+❌ [ERROR] T+1竞价选股任务失败
+   'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 779, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 741, in main
+    run_t1_auction_task(args.date, send_message=not args.no_message)
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1493, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1253, in run
+    top_stocks = self._comprehensive_judgment(scored_stocks, market_risk, config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'

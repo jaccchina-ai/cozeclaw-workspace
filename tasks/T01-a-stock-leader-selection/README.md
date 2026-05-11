@@ -1,254 +1,290 @@
-# Task T01: A股龙头选股策略
+# T01 A股龙头选股系统
 
-> **版本**: 2.0.0  
-> **状态**: ✅ Active  
-> **最后更新**: 2026-03-09
+## 概述
 
----
+T01 是一个基于 AI 的 A股龙头战法选股系统，通过多维度因子分析、竞价数据挖掘和遗传算法优化，实现智能化选股决策。
 
-## 📌 任务概述
+### 核心特性
 
-基于涨停板策略的A股龙头股选股系统，通过T日晚间和T+1日早盘两次筛选，精准捕捉最有望继续涨停的龙头股票。
-
----
-
-## 🎯 核心目标
-
-在交易日T日晚上8点对当日涨停股进行初步评分，筛选出10只最有潜力的观察标的；在T+1日早上9:25结合竞价数据进行最终筛选，推荐3只涨停概率最高的股票，并提供仓位建议和风险提示。
+- **T日选股**: 每日20:00初选10只优质股票
+- **T+1竞价**: 每日09:27从T日初选中精选不超过2只股票
+- **市场复盘**: AI 分析热点板块持续性
+- **结果跟踪**: 自动跟踪选股胜率，持续优化策略
+- **策略进化**: 遗传算法动态优化因子权重
 
 ---
 
-## 📁 项目结构
+## 文档目录
+
+| 文档 | 说明 |
+|------|------|
+| [README.md](README.md) | 项目总览 |
+| [docs/scheduler.md](docs/scheduler.md) | Cron 任务调度详解 |
+| [docs/dual-write.md](docs/dual-write.md) | 双写架构文档 |
+
+---
+
+## 系统架构
 
 ```
-T01-a-stock-leader-selection/
-├── main.py                 # 主入口文件
-├── data_fetcher.py         # 数据获取模块 (Tushare API)
-├── scoring_model.py        # 十一因子评分模型
-├── selection_engine.py     # 选股引擎
-├── messenger.py            # 消息推送模块 (飞书)
-├── evolution.py            # 策略进化模块
-├── database/
-│   └── models.py           # 数据库模型 (SQLite)
-├── README.md               # 本文档
-├── api-spec.md             # API接口规范
-├── selection-logic.md      # 选股逻辑说明
-├── risk-control.md         # 风控建议
-└── backtest-evolution.md   # 回测进化建议
+T01 选股系统
+├── main.py                 # 主入口 & Cron 调度器
+├── selection_engine.py     # 选股引擎 (T日 + T+1竞价)
+├── data_fetcher.py         # Tushare 数据获取
+├── scoring_model.py        # 评分模型
+├── factor_config.py        # 因子配置
+├── unifuncs_scheduler.py   # Unifuncs 舆情预热
+├── market_review.py        # 市场复盘
+├── evolution.py            # 策略进化 (遗传算法)
+├── messenger.py            # 消息通知 (飞书/钉钉)
+├── monitor.py              # 任务监控
+├── mx_search_integration.py # 搜索集成
+├── money_flow_analyzer.py  # 资金流向分析
+└── database/
+    ├── models.py           # 数据模型
+    ├── dual_write_manager.py # 双写管理
+    └── consistency_checker.py # 一致性检查
 ```
 
 ---
 
-## 🚀 快速开始
+## Cron 任务调度
 
-### 1. 初始化数据库
+| 时间 | 任务 | 说明 |
+|------|------|------|
+| 19:30 | Unifuncs预热 | 获取舆情分析结果 |
+| 20:00 | T日选股 | 执行T日初选 |
+| 21:00 | T01-Market-Review | 市场复盘分析 |
+| 09:00 | T01-Deps-Check | 依赖检查 |
+| 09:27 | T01-T1-Auction | T+1竞价选股 |
+| 16:10 | T01-Track | 跟踪结果 & 计算胜率 |
+| 周日 20:00 | 策略进化 | 遗传算法优化 |
 
-```bash
-cd workspace/tasks/T01-a-stock-leader-selection
-python main.py init
-```
-
-### 2. 执行T日选股
-
-```bash
-python main.py t-day
-```
-
-### 3. 执行T+1竞价选股
+### 启动调度器
 
 ```bash
-python main.py t1-auction
-```
-
-### 4. 启动定时调度器
-
-```bash
+cd /workspace/projects/workspace/tasks/T01-a-stock-leader-selection
 python main.py schedule
 ```
 
 ---
 
-## ⏰ 调度规则
-
-| 任务 | 执行时间 | 说明 |
-|------|---------|------|
-| T日选股 | 交易日 20:00 | 对当日涨停股进行初选 |
-| T+1竞价 | 交易日 09:25 | 结合竞价数据精选 |
-| 结果跟踪 | 交易日 15:05 | 记录T+2收益情况 |
-| 策略进化 | 每周日 20:00 | 优化因子权重 |
-
----
-
-## 📊 十一因子评分模型 (总分100分)
-
-| 因子 | 权重 | 说明 |
-|------|------|------|
-| 涨停质量 | 12% | 首次涨停时间、炸板次数、连板数 |
-| 封成比 | 10% | 封单金额/成交金额 |
-| 封流比 | 12% | 封单金额/自由流通市值 |
-| 量比 | 8% | 当日成交量/5日均量 |
-| 真实换手率 | 8% | 成交金额/自由流通市值 |
-| 龙虎榜+北向 | 12% | 机构/游资/北向资金 |
-| 个股资金结构 | 10% | 主力净流入、中单净额 |
-| 成交金额排名 | 8% | 全市场排名 |
-| 热点板块 | 8% | 板块涨停数、涨幅、资金流向 |
-| MA3乖离率 | 6% | 风控因子，防追高 |
-| 舆情分析 | 6% | unifuncs API 附加分 |
-
----
-
-## 🔍 T+1竞价筛选规则
-
-### 筛选条件
-- 竞价涨幅 < 1%: 直接剔除
-- 竞价量 < 昨日成交量5%: 剔除（无量上涨）
-
-### 评分因子
-1. 竞价换手率
-2. 竞价金额
-3. 竞价涨幅
-4. 竞价量比
-5. 竞价爆量比 = 竞价成交量 / 昨日全天成交量
-6. 板块竞价涨幅
-7. 板块共振度 = 个股竞价涨幅 - 板块竞价涨幅
-8. T日初选评分
-
-### 特殊情况：竞价爆量弱转强
-- 条件A: T日炸板次数 > 0
-- 条件B: T+1日竞价金额 > T日全天成交额的 10%
-- 条件C: T+1日竞价涨幅高开，大于2%
-- 满足 A+B+C: 直接给予95分超高评级
-
----
-
-## 📈 输出示例
-
-### T日晚间初选
-
-```
-T01龙头战法 - 2026-03-09 晚间初选结果
-
-【市场情绪】主升，涨停85家，跌停3家，建议仓位60%
-【宏观风险】评分: 4/10 - 风险适中
-【策略胜率】60%
-
-【明日观察标的】（按优先级）
-1️⃣ 000001.SZ 平安银行 - 得分: 87.5 - 银行
-   涨停质量优秀 + 封流比高 + 龙虎榜资金认可
-2️⃣ 600000.SH 浦发银行 - 得分: 82.0 - 银行
-   板块热度高 + 主力资金大幅流入
-...
-
-【个股评分因子详情】
-1️⃣ 000001.SZ 平安银行 - 得分: 87.5
-1. 首次涨停时间: 09:45:00
-2. 封成比: 0.35
-3. 封流比: 0.08
-4. 量比: 2.5
-5. 真实换手率: 12.5%
-6. 龙虎榜净买入: 5000万
-7. 主力净占比: 15.2%
-8. Bias MA3: 4.2%
-```
-
-### T+1竞价精选
-
-```
-T01龙头战法 - 2026-03-10 竞价精选股票
-
-【市场风险】评分: 4/10 - 风险适中
-【策略胜率】60%
-
-【精选标的】
-1️⃣ 000001.SZ 平安银行 - 得分: 92.0
-   竞价涨幅: +2.5% | 建议仓位: 35%
-   竞价涨幅适中 + 竞价爆量 + T日评分优秀
-2️⃣ 600000.SH 浦发银行 - 得分: 85.0 🔥【弱转强】
-   竞价涨幅: +3.2% | 建议仓位: 30%
-   竞价爆量弱转强，无视技术指标
-...
-```
-
----
-
-## 🧬 策略进化机制
-
-### 每周反思
-1. 计算策略胜率 (T+2收益 > 3%)
-2. 计算各因子IC值 (信息系数)
-3. 识别失效因子 (IC < 0.03)
-4. 调整因子权重
-5. 发现新因子
-
-### 连续无选股预警
-- 连续3天无选股: 触发策略失效预警
-
-### 机器学习优化
-- 因子权重优化 (遗传算法)
-- 阈值自适应调整
-- 新因子挖掘
-
----
-
-## 🔧 配置
-
-### 环境变量
+## 手动命令
 
 ```bash
-# 飞书 Webhook URL
-export FEISHU_WEBHOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/xxx"
+# 依赖检查
+python main.py deps-check
 
-# Tushare Token (已内置)
-# TUSHARE_TOKEN="xxx"
+# T日选股
+python main.py t-day
+
+# T+1竞价选股
+python main.py t1-auction
+
+# 市场复盘
+python main.py market-review
+
+# 结果跟踪
+python main.py track
+
+# Unifuncs预热
+python main.py unifuncs
+
+# 策略进化
+python main.py evolution
+
+# 查看状态
+python main.py status
+
+# 指定日期执行
+python main.py t-day --date 20250401
 ```
 
-### 因子权重调整
+---
 
-编辑 `scoring_model.py` 中的 `FactorWeights` 类：
+## 数据架构
 
-```python
-@dataclass
-class FactorWeights:
-    limit_quality: float = 12.0
-    seal_ratio: float = 10.0
-    seal_flow_ratio: float = 12.0
-    # ...
+### 双写架构
+
+采用 PostgreSQL (外部持久化) + SQLite (本地备份) 双写架构：
+
+```
+写入操作
+    │
+    ├─→ PostgreSQL (主库)
+    │      URL: cp-hip-veil-65383f4d.pg5.aidap-global.cn-beijing.volces.com:5432
+    │
+    └─→ SQLite (本地备份)
+           路径: /workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/t01.db
+```
+
+### 一致性检查
+
+```bash
+# 检查数据一致性
+python database/consistency_checker.py --check
+
+# 自动同步 (从数据多的库同步到数据少的)
+python database/consistency_checker.py --sync
+
+# 查看详细状态
+python database/consistency_checker.py --status
 ```
 
 ---
 
-## 📝 数据存储
+## 核心因子
 
-- **SQLite数据库**: `database/t01_stocks.db`
-- **表结构**:
-  - `trading_calendar` - 交易日历
-  - `daily_stock_data` - 每日股票数据
-  - `limit_up_stocks` - 涨停股票
-  - `stock_factor_scores` - 因子评分
-  - `auction_data` - 竞价数据
-  - `market_sentiment` - 市场情绪
-  - `selection_results` - 选股结果
-  - `daily_stock_records` - 每日记录
-  - `strategy_evolution` - 策略进化记录
+### T日选股因子
 
----
+| 因子 | 说明 | 权重 |
+|------|------|------|
+| limit_up_strength | 涨停强度 | 15% |
+| sector_linkage_score | 板块联动 | 15% |
+| main_money_flow | 主力资金流向 | 20% |
+| market_sentiment | 市场情绪 | 10% |
+| burst_signal | 爆量信号 | 15% |
+| continuity | 连板效应 | 25% |
 
-## ⚠️ 重要说明
+### 竞价评分因子
 
-1. **数据来源**: Tushare API (需要付费权限获取涨停、竞价等数据)
-2. **风险提示**: 本系统仅供参考，不构成投资建议
-3. **API限制**: 部分接口有调用频率限制
-4. **数据延迟**: 竞价数据可能在9:25后才可获取
-
----
-
-## 📊 版本历史
-
-| 版本 | 日期 | 变更说明 |
-|------|------|---------|
-| 2.0.0 | 2026-03-09 | 完整实现十一因子评分、竞价筛选、策略进化 |
-| 1.0.0 | 2026-03-02 | 初始版本 |
+| 因子 | 说明 |
+|------|------|
+| auction_turnover | 竞价换手率 |
+| auction_amount | 竞价成交额 |
+| auction_pct_chg | 竞价涨幅 |
+| auction_volume_ratio | 竞价量比 |
+| auction_burst_ratio | 竞价爆量比 |
+| sector_resonance | 板块共振 |
 
 ---
 
-*文档最后更新: 2026-03-09*
+## 数据获取策略
+
+### T日数据获取 (20:00)
+
+只获取必要数据，初选 **10 只** 优质股票：
+
+1. **涨停股数据** (~60条)
+   - `pro_bar` 或 `stk_moneyflow` 接口
+
+2. **资金流向数据**
+   - `moneyflow_data` 接口
+
+3. **市场情绪**
+   - `market_sentiment` 接口
+
+### T+1竞价数据获取 (09:27)
+
+从 T 日初选的 10 只中精选 **不超过 2 只**：
+
+1. **竞价数据**
+   - `stk_auction` 接口
+
+2. **注意事项**: 竞价阶段**不使用**主力资金流向模块
+
+---
+
+## 依赖检查 (T01-Deps-Check)
+
+09:00 执行，检查项：
+
+1. Tushare API 连接
+2. 数据库连接
+3. T日选股数据存在性
+4. 市场情绪数据完整性
+
+---
+
+## 飞书消息通知
+
+系统通过飞书卡片消息推送选股结果和复盘报告。
+
+### 消息类型
+
+- T日选股结果
+- T+1竞价结果
+- 市场复盘报告
+- 异常告警
+
+---
+
+## 测试与调试
+
+### 模块测试
+
+```bash
+# 运行因子 IC 分析
+python factor_ic_check.py
+
+# 运行选股引擎测试
+python run_module_tests.py
+
+# 测试资金流向分析
+python test_money_flow_analyzer.py
+
+# 检查数据库结构
+python check_schema.py
+```
+
+### 数据回填
+
+```bash
+# 回填因子数据
+python backfill_factor_data.py --start 20240101 --end 20240331
+
+# 查看日志
+tail -f /workspace/projects/workspace/logs/t01/t01_*.log
+```
+
+---
+
+## 技术栈
+
+| 组件 | 版本/说明 |
+|------|----------|
+| Python | 3.x |
+| Tushare | 最新版 |
+| SQLAlchemy | ORM |
+| PostgreSQL | 外部持久化 |
+| SQLite | 本地备份 |
+| scikit-learn | 机器学习 |
+| DEAP | 遗传算法 |
+| LangChain | LLM 集成 |
+| Coze SDK | 模型调用 |
+
+---
+
+## 文件路径
+
+| 类型 | 路径 |
+|------|------|
+| 项目根目录 | `/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/` |
+| 日志目录 | `/workspace/projects/workspace/logs/t01/` |
+| 消息队列 | `/workspace/projects/delivery-queue/` |
+| SQLite 数据库 | `./database/t01.db` |
+
+---
+
+## 注意事项
+
+1. **数据真实性**: 所有指标数值必须使用真实数据，不允许模拟
+2. **决策模式**: 采用审核批准制，Agent 提出方案，人类最终决策
+3. **IP 限制**: 避免频繁调用 Tushare API，遵守接口限制
+4. **版本兼容性**: OpenClaw 2026.3.22+ 与 openclaw-wechat 存在不兼容问题
+
+---
+
+## 更新日志
+
+### 2026.04.06
+- 新增 21:00 T01-Market-Review 市场复盘任务
+- 新增 09:00 T01-Deps-Check 依赖检查任务
+- 调整 T01-Track 执行时间为 16:10
+- 优化数据获取策略，只获取涨停股数据
+- 完成双写架构改造
+
+### 2026.03.22
+- 修复 openclaw-wechat 插件兼容性问题
+- 优化因子 IC 分析
+- 添加一致性检查工具

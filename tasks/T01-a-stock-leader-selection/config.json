@@ -1,0 +1,15 @@
+{
+  "tushare": {
+    "token": "870008d508d2b0e57ecf2ccc586c23c4ecc37522f5e93890fb3d56ab"
+  },
+  "database": {
+    "url": "postgresql://postgres:***@cp-hip-veil-65383f4d.pg5.aidap-global.cn-beijing.volces.com:5432/postgres?sslmode=require"
+  },
+  "data_fetcher": {
+    "batch_size": 10,
+    "retry_count": 3,
+    "timeout": 30,
+    "date_format": "%Y%m%d",
+    "default_start_date": "20260101"
+  }
+}

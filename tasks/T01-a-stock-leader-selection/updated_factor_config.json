@@ -1,0 +1,590 @@
+{
+  "t_day_factors": {
+    "limit_quality": {
+      "code": "limit_quality",
+      "name": "涨停质量",
+      "type": "both",
+      "weight": 12.0,
+      "description": "首次涨停时间、炸板次数、连板数综合评分",
+      "score_rules": [
+        [
+          10,
+          10
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "seal_ratio": {
+      "code": "seal_ratio",
+      "name": "封成比",
+      "type": "both",
+      "weight": 10.0,
+      "description": "封单金额/成交金额",
+      "score_rules": [
+        [
+          0.5,
+          10
+        ],
+        [
+          0.3,
+          8
+        ],
+        [
+          0.1,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "seal_flow_ratio": {
+      "code": "seal_flow_ratio",
+      "name": "封流比",
+      "type": "both",
+      "weight": 12.0,
+      "description": "封单金额/流通市值",
+      "score_rules": [
+        [
+          0.08,
+          10
+        ],
+        [
+          0.05,
+          8
+        ],
+        [
+          0.02,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "volume_ratio": {
+      "code": "volume_ratio",
+      "name": "量比",
+      "type": "both",
+      "weight": 8.0,
+      "description": "当日成交量/5日均量",
+      "score_rules": [
+        [
+          3,
+          10
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "turnover_rate": {
+      "code": "turnover_rate",
+      "name": "真实换手率",
+      "type": "both",
+      "weight": 8.0,
+      "description": "成交量/自由流通股本",
+      "score_rules": [
+        [
+          20,
+          10
+        ],
+        [
+          10,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "dragon_tiger": {
+      "code": "dragon_tiger",
+      "name": "龙虎榜",
+      "type": "both",
+      "weight": 15.0,
+      "description": "龙虎榜净买入金额",
+      "score_rules": [
+        [
+          10000,
+          10
+        ],
+        [
+          5000,
+          9
+        ],
+        [
+          2000,
+          8
+        ],
+        [
+          1000,
+          7
+        ],
+        [
+          500,
+          6
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          -1,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "money_flow": {
+      "code": "money_flow",
+      "name": "资金流向",
+      "type": "both",
+      "weight": 10.0,
+      "description": "主力净流入占比",
+      "score_rules": [
+        [
+          20,
+          10
+        ],
+        [
+          10,
+          8
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          -10,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "amount_rank": {
+      "code": "amount_rank",
+      "name": "成交额排名",
+      "type": "both",
+      "weight": 8.0,
+      "description": "涨停股中成交额排名",
+      "score_rules": [
+        [
+          3,
+          10
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          10,
+          6
+        ],
+        [
+          999,
+          4
+        ]
+      ],
+      "higher_is_better": false
+    },
+    "sector_heat": {
+      "code": "sector_heat",
+      "name": "板块热度",
+      "type": "both",
+      "weight": 8.0,
+      "description": "同板块涨停股票数量",
+      "score_rules": [
+        [
+          5,
+          10
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "bias_ma3": {
+      "code": "bias_ma3",
+      "name": "MA3乖离率",
+      "type": "both",
+      "weight": 6.0,
+      "description": "股价偏离MA3的程度（风控因子）",
+      "score_rules": [
+        [
+          3,
+          10
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          999,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "sentiment": {
+      "code": "sentiment",
+      "name": "舆情分析",
+      "type": "score",
+      "weight": 6.0,
+      "description": "AI舆情分析附加分",
+      "score_rules": [
+        [
+          10,
+          10
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "sector_linkage": {
+      "code": "sector_linkage",
+      "name": "板块联动强度",
+      "type": "both",
+      "weight": 10.0,
+      "description": "个股与板块价格相关性、领先滞后关系、板块内地位综合评分",
+      "score_rules": [
+        [
+          80,
+          10
+        ],
+        [
+          60,
+          8
+        ],
+        [
+          40,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "order_imbalance": {
+      "code": "order_imbalance",
+      "name": "订单失衡",
+      "type": "both",
+      "weight": 8.0,
+      "description": "大额订单买入卖出失衡程度",
+      "score_rules": [
+        [
+          0.2,
+          10
+        ],
+        [
+          0.1,
+          8
+        ],
+        [
+          0.0,
+          6
+        ],
+        [
+          -0.1,
+          4
+        ],
+        [
+          -0.2,
+          2
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "large_order_ratio": {
+      "code": "large_order_ratio",
+      "name": "大额订单比例",
+      "type": "both",
+      "weight": 6.0,
+      "description": "大额订单占总成交量比例",
+      "score_rules": [
+        [
+          0.3,
+          10
+        ],
+        [
+          0.2,
+          8
+        ],
+        [
+          0.1,
+          6
+        ],
+        [
+          0.05,
+          4
+        ],
+        [
+          0.0,
+          2
+        ]
+      ],
+      "higher_is_better": true
+    }
+  },
+  "auction_factors": {
+    "auction_turnover": {
+      "code": "auction_turnover",
+      "name": "竞价换手率",
+      "type": "both",
+      "weight": 12.0,
+      "description": "竞价成交量/流通股本",
+      "score_rules": [
+        [
+          5,
+          10
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "auction_amount": {
+      "code": "auction_amount",
+      "name": "竞价金额",
+      "type": "both",
+      "weight": 10.0,
+      "description": "竞价成交金额（万元）",
+      "score_rules": [
+        [
+          5000,
+          10
+        ],
+        [
+          2000,
+          8
+        ],
+        [
+          500,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "auction_pct_chg": {
+      "code": "auction_pct_chg",
+      "name": "竞价涨幅",
+      "type": "both",
+      "weight": 15.0,
+      "description": "竞价价格相对昨日收盘涨幅",
+      "score_rules": [
+        [
+          7,
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          -999,
+          0
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "auction_volume_ratio": {
+      "code": "auction_volume_ratio",
+      "name": "竞价量比",
+      "type": "both",
+      "weight": 10.0,
+      "description": "竞价量/近期平均量",
+      "score_rules": [
+        [
+          3,
+          10
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "auction_burst_ratio": {
+      "code": "auction_burst_ratio",
+      "name": "竞价爆量比",
+      "type": "both",
+      "weight": 12.0,
+      "description": "竞价量/昨日成交量",
+      "score_rules": [
+        [
+          0.15,
+          10
+        ],
+        [
+          0.1,
+          8
+        ],
+        [
+          0.05,
+          6
+        ],
+        [
+          0.02,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "sector_auction_pct": {
+      "code": "sector_auction_pct",
+      "name": "板块竞价涨幅",
+      "type": "both",
+      "weight": 10.0,
+      "description": "同板块竞价平均涨幅",
+      "score_rules": [
+        [
+          0,
+          10
+        ],
+        [
+          -999,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "sector_resonance": {
+      "code": "sector_resonance",
+      "name": "板块共振度",
+      "type": "both",
+      "weight": 12.0,
+      "description": "个股竞价涨幅-板块竞价涨幅",
+      "score_rules": [
+        [
+          2,
+          10
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          -2,
+          6
+        ],
+        [
+          -999,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    },
+    "t_day_score": {
+      "code": "t_day_score",
+      "name": "T日评分",
+      "type": "both",
+      "weight": 15.0,
+      "description": "T日选股基础评分",
+      "score_rules": [
+        [
+          100,
+          10
+        ],
+        [
+          80,
+          8
+        ],
+        [
+          60,
+          6
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "higher_is_better": true
+    }
+  }
+}

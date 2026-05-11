@@ -1,0 +1,14 @@
+[
+  {
+    "table": "market_sentiment",
+    "pg_count": -1,
+    "sqlite_count": -1,
+    "consistent": false,
+    "pg_only_records": [],
+    "sqlite_only_records": [],
+    "diff_records": [],
+    "errors": [
+      "无法获取至少一个数据库的记录数"
+    ]
+  }
+]

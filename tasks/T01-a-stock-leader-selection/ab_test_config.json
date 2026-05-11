@@ -1,0 +1,57 @@
+{
+  "version": "20260417_v1",
+  "groups": {
+    "control": {
+      "factors": [
+        "limit_quality",
+        "seal_ratio",
+        "seal_flow_ratio",
+        "volume_ratio",
+        "turnover_rate",
+        "dragon_tiger",
+        "money_flow",
+        "amount_rank",
+        "sector_heat",
+        "bias_ma3",
+        "sentiment",
+        "sector_linkage",
+        "order_imbalance",
+        "large_order_ratio"
+      ],
+      "exclude": [
+        "order_imbalance",
+        "large_order_ratio"
+      ],
+      "description": "对照组，使用原有因子"
+    },
+    "treatment": {
+      "factors": [
+        "limit_quality",
+        "seal_ratio",
+        "seal_flow_ratio",
+        "volume_ratio",
+        "turnover_rate",
+        "dragon_tiger",
+        "money_flow",
+        "amount_rank",
+        "sector_heat",
+        "bias_ma3",
+        "sentiment",
+        "sector_linkage",
+        "order_imbalance",
+        "large_order_ratio"
+      ],
+      "include_all": true,
+      "description": "实验组，包含新因子"
+    }
+  },
+  "metrics": {
+    "win_rate": "胜率",
+    "avg_return": "平均收益率",
+    "sharpe_ratio": "夏普比率",
+    "max_drawdown": "最大回撤"
+  },
+  "sample_size": 30,
+  "duration_days": 14,
+  "confidence_level": 0.95
+}

@@ -1,0 +1,48 @@
+{
+  "max_selections": 3,
+  "judgment_factors": {
+    "score_threshold": {
+      "enabled": true,
+      "value": 70.0,
+      "description": "最低分数阈值"
+    },
+    "market_risk": {
+      "enabled": false,
+      "high_risk_max_selection": 1,
+      "medium_risk_max_selection": 2,
+      "low_risk_max_selection": 2,
+      "description": "根据市场风险调整选股数量"
+    },
+    "sector_diversification": {
+      "enabled": false,
+      "max_from_same_sector": 2,
+      "description": "同一板块最多选股数量"
+    },
+    "score_gap_judgment": {
+      "enabled": true,
+      "top_score_min_gap": 5.0,
+      "secondary_score_min_gap": 10.0,
+      "description": "分数差距判断，防止分数接近的股票被硬性截断"
+    },
+    "pattern_recognition": {
+      "enabled": true,
+      "prefer_patterns": [
+        "弱转强",
+        "竞价爆量",
+        "板块龙头"
+      ],
+      "avoid_patterns": [
+        "连续一字板",
+        "高位放量"
+      ],
+      "description": "技术形态偏好"
+    }
+  },
+  "decision_flow": [
+    "1. 首先应用分数阈值过滤",
+    "2. 根据市场风险调整最大可选数量",
+    "3. 检查板块分散度",
+    "4. 应用分数差距判断",
+    "5. 技术形态模式识别"
+  ]
+}

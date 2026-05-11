@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+T01 选股系统 - 进化配置文件
+"""
+
+{
+  "evolution_settings": {
+    "population_size": 50,              # 种群大小
+    "generation_limit": 100,            # 最大进化代数
+    "mutation_rate": 0.1,               # 变异率
+    "crossover_rate": 0.7,              # 交叉率
+    "elitism_count": 2,                 # 精英保留数量
+    
+    "fitness_weights": {
+      "win_rate": 0.4,                  # 胜率权重
+      "avg_return": 0.3,                # 平均收益权重
+      "max_drawdown": 0.2,              # 最大回撤权重（负向）
+      "profit_factor": 0.1              # 盈利因子权重
+    },
+    
+    "selection_method": "tournament",   # 选择方法: roulette/tournament/rank
+    "tournament_size": 3,               # 锦标赛规模
+    
+    "backtest_days": 60,                # 回测天数
+    "lookback_period": 20,              # 回溯周期
+    
+    "early_stopping": true,             # 是否启用早停
+    "patience": 20,                     # 早停耐心值
+    "min_improvement": 0.001,           # 最小提升阈值
+    
+    "factor_weights_range": {
+      "limit_quality": [0.05, 0.2],     # 涨停质量因子权重范围
+      "seal_ratio": [0.05, 0.15],       # 封成比因子权重范围
+      "seal_flow_ratio": [0.05, 0.15],  # 封流比因子权重范围
+      "volume_ratio": [0.05, 0.15],     # 量比因子权重范围
+      "turnover_rate": [0.05, 0.15],    # 换手率因子权重范围
+      "dragon_tiger": [0.05, 0.15],     # 龙虎榜因子权重范围
+      "money_flow": [0.05, 0.15],       # 资金流因子权重范围
+      "amount_rank": [0.05, 0.1],       # 成交额排名因子权重范围
+      "sector_heat": [0.05, 0.15],      # 板块热度因子权重范围
+      "bias_ma3": [0.05, 0.15],         # MA3乖离率因子权重范围
+      "sentiment": [0.02, 0.1]          # 舆情因子权重范围
+    }
+  },
+  
+  "result_analysis": {
+    "top_n": 5,                         # 显示前N个最佳策略
+    "confidence_level": 0.95,           # 置信水平
+    "significance_threshold": 0.05,     # 显著性阈值
+    
+    "metrics_to_monitor": [
+      "win_rate",
+      "avg_return",
+      "max_drawdown",
+      "profit_factor",
+      "sharpe_ratio",
+      "sortino_ratio",
+      "win_loss_ratio"
+    ],
+    
+    "visualization": {
+      "enabled": true,                  # 是否启用可视化
+      "plot_types": [
+        "win_rate_distribution",
+        "return_distribution",
+        "weight_evolution",
+        "performance_comparison"
+      ]
+    }
+  },
+  
+  "deployment": {
+    "auto_deploy": true,                # 是否自动部署最佳策略
+    "approval_required": false,         # 是否需要人工批准
+    "backup_before_deploy": true,       # 部署前是否备份
+    "backup_retention_days": 30,        # 备份保留天数
+    
+    "validation": {
+      "enabled": true,                  # 是否启用部署后验证
+      "test_period_days": 5,            # 验证周期
+      "min_win_rate": 0.5,              # 最小胜率要求
+      "min_avg_return": 0.01            # 最小平均收益要求
+    }
+  }
+}

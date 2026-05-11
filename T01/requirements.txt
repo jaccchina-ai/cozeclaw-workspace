@@ -1,0 +1,26 @@
+# T01 龙头选股策略 - 依赖包
+
+# 数据处理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# 金融数据接口
+tushare>=1.3.0
+akshare>=1.12.0
+
+# 数据库
+sqlalchemy>=2.0.0
+
+# HTTP请求
+requests>=2.31.0
+
+# 工具
+python-dateutil>=2.8.0
+tqdm>=4.66.0
+
+# 可选: 通知
+# lark-oapi  # 飞书SDK
+
+# 可选: 回测
+# backtrader
+# quantstats

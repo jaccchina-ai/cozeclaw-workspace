@@ -1,0 +1,8 @@
+2026-04-03 16:08:00 - Data consistency check completed successfully. All 7 tables are in sync between PostgreSQL and SQLite.
+- selection_results: 255 records
+- factor_scores: 521 records
+- auction_data: 118 records
+- market_sentiment: 18 records
+- unifuncs_results: 8 records
+- tracked_results: 24 records
+- ml_training_records: 21 records

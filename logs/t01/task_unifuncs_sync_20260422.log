@@ -1,0 +1,2 @@
+[2026-04-22 20:00:12] [INFO] [t01.task.unifuncs_sync] 等待Unifuncs预热任务完成，日期: 20260422
+[2026-04-22 20:00:33] [INFO] [t01.task.unifuncs_sync] 成功同步5条Unifuncs推荐结果

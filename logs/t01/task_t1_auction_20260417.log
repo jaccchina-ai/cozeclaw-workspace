@@ -1,0 +1,44 @@
+[2026-04-17 09:28:13] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 09:28:13] [INFO] [t01.task.t1_auction] T01 T+1竞价选股任务启动 - 2026-04-17 09:28:13.550031
+[2026-04-17 09:28:13] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 09:28:13] [ERROR] [t01.task.t1_auction] ❌ T+1竞价选股任务失败: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+[2026-04-17 09:28:13] [ERROR] [t01.task.t1_auction] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1486, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1245, in run
+    config = self._load_auction_judgment_config()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+
+[2026-04-17 09:34:24] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 09:34:24] [INFO] [t01.task.t1_auction] T01 T+1竞价选股任务启动 - 2026-04-17 09:34:24.917467
+[2026-04-17 09:34:24] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 09:34:25] [ERROR] [t01.task.t1_auction] ❌ T+1竞价选股任务失败: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+[2026-04-17 09:34:25] [ERROR] [t01.task.t1_auction] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1493, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1253, in run
+    top_stocks = self._comprehensive_judgment(scored_stocks, market_risk, config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+
+[2026-04-17 11:08:20] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 11:08:20] [INFO] [t01.task.t1_auction] T01 T+1竞价选股任务启动 - 2026-04-17 11:08:20.668647
+[2026-04-17 11:08:20] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 11:08:23] [WARNING] [t01.task.t1_auction] ⚠️ 无选股结果
+[2026-04-17 15:48:58] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 15:48:58] [INFO] [t01.task.t1_auction] T01 T+1竞价选股任务启动 - 2026-04-17 15:48:58.627765
+[2026-04-17 15:48:58] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-17 15:49:03] [WARNING] [t01.task.t1_auction] ⚠️ 无选股结果
+[2026-04-18 05:03:13] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-18 05:03:13] [INFO] [t01.task.t1_auction] T01 T+1竞价选股任务启动 - 2026-04-18 05:03:13.814113
+[2026-04-18 05:03:13] [INFO] [t01.task.t1_auction] ============================================================
+[2026-04-18 05:03:15] [WARNING] [t01.task.t1_auction] ⚠️ 无选股结果

@@ -14,13 +14,17 @@ from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass
 import sqlite3
 
+from moa_strategy_reflector import MoAStrategyReflector
+
 sys.path.insert(0, os.path.dirname(__file__))
 
+from sqlalchemy import text, func
 from database.models import (
     get_session, init_db,
     SelectionResult, DailyStockRecord, StrategyEvolution
 )
 from scoring_model import FactorWeights as ScoringFactorWeights
+from orthogonal_scoring import FactorAnalyzer, OrthogonalScoringModel
 
 
 @dataclass
@@ -65,10 +69,20 @@ class StrategyEvolutionEngine:
         # 4. 计算因子权重调整建议
         weight_adjustments = self._suggest_weight_adjustments(factor_ics, win_rate)
         
-        # 5. 连续无选股检查
+        # 5. 因子相关性分析（正交化Phase 1）
+        print(f"\n🔗 因子相关性分析:")
+        factor_corr_report = self._analyze_factor_correlation()
+        if factor_corr_report.get('high_correlations'):
+            print(f"   发现 {len(factor_corr_report['high_correlations'])} 对高相关因子")
+            for hc in factor_corr_report['high_correlations'][:3]:
+                print(f"     {hc['factor1']} ↔ {hc['factor2']}: {hc['correlation']}")
+        else:
+            print("   ✅ 因子相关性良好")
+        
+        # 6. 连续无选股检查
         consecutive_no_selection = self._check_consecutive_no_selection()
         
-        # 6. 生成优化建议
+        # 7. 生成优化建议
         optimization = {
             'win_rate': win_rate,
             'factor_ics': [{'name': f.factor_name, 'ic': f.ic_value, 'valid': f.is_valid} for f in factor_ics],
@@ -79,42 +93,70 @@ class StrategyEvolutionEngine:
             'recommendations': self._generate_recommendations(win_rate, invalid_factors, consecutive_no_selection)
         }
         
-        # 7. 保存进化记录
+        # 8. 执行MoA多模型策略反思（Phase 3）
+        if win_rate < 0.4 or len(invalid_factors) > 3:
+            print(f"\n🔍 启动MoA多模型策略反思...")
+            moa_reflector = MoAStrategyReflector()
+            moa_result = moa_reflector.reflect_strategy(optimization)
+            
+            # 将MoA结果添加到优化建议中
+            optimization['moa_analysis'] = moa_result
+            optimization['final_recommendation'] = moa_result.get('final_recommendation', '')
+            optimization['execution_plan'] = moa_result.get('execution_plan', [])
+            
+            print("✅ MoA多模型策略反思完成")
+        
+        # 9. 保存进化记录
         self._save_evolution_record(optimization)
         
         return optimization
     
-    def _calculate_win_rate(self, days: int = 7) -> float:
+    def _calculate_win_rate(self, days: int = 30) -> float:
         """
         计算策略胜率
         
-        成功标准: T+2日收盘价 / T+1日开盘价 > 1.03
+        成功标准: 总收益率 > 3% (基于分批卖出策略)
+        卖出策略:
+        - T+2日涨停: 卖出一半，继续持有一半
+        - T+2日未涨停: 全部卖出
+        - T+3日涨停: 继续持有
+        - T+3日未涨停: 卖出剩余全部
+        - 以此类推
+        
+        Args:
+            days: 统计天数，默认30天
+            
+        Returns:
+            胜率 (0.0-1.0)，数据不足时返回 -1.0
         """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         try:
-            # 查询有完整跟踪数据的记录
+            # 查询 tracked_results 表获取跟踪数据
+            # 使用 DISTINCT 去重，避免重复记录影响统计
             query = """
             SELECT 
-                COUNT(*) as total,
-                SUM(CASE WHEN t2_return > 3 THEN 1 ELSE 0 END) as wins
-            FROM daily_stock_records
-            WHERE is_selected = 1
-            AND t2_return IS NOT NULL
-            AND created_at >= date('now', '-' || ? || ' days')
+                COUNT(DISTINCT t1_day || '_' || ts_code) as total,
+                SUM(CASE WHEN return_pct > 3 THEN 1 ELSE 0 END) as wins
+            FROM tracked_results
+            WHERE t1_day >= date('now', '-' || ? || ' days')
             """
             cursor.execute(query, (days,))
             result = cursor.fetchone()
             
-            if result[0] == 0:
-                return 0.0
+            total = result[0] or 0
+            wins = result[1] or 0
             
-            return result[1] / result[0]
+            # 数据不足时返回 -1.0 作为标记
+            if total < 10:
+                return -1.0
+            
+            return wins / total if total > 0 else 0.0
             
         except Exception as e:
             print(f"计算胜率失败: {e}")
-            return 0.0
+            return -1.0
         finally:
             conn.close()
     
@@ -147,13 +189,13 @@ class StrategyEvolutionEngine:
             for factor in factors:
                 query = f"""
                 SELECT 
-                    s.{factor} as factor_value,
+                    f.{factor} as factor_value,
                     d.t2_return
-                FROM selection_results s
-                JOIN daily_stock_records d ON s.ts_code = d.ts_code AND s.trade_date = d.trade_date
-                WHERE s.selection_type = 't_day'
+                FROM stock_factor_scores f
+                JOIN daily_stock_records d ON f.ts_code = d.ts_code AND f.trade_date = d.trade_date
+                WHERE d.is_selected = 1
                 AND d.t2_return IS NOT NULL
-                AND s.created_at >= date('now', '-' || ? || ' days')
+                AND f.created_at >= date('now', '-' || ? || ' days')
                 """
                 
                 cursor.execute(query, (days,))
@@ -310,6 +352,68 @@ class StrategyEvolutionEngine:
         
         return recommendations
     
+    def _analyze_factor_correlation(self) -> Dict:
+        """
+        分析因子相关性
+        
+        识别高相关性的因子对，用于正交化处理
+        """
+        conn = sqlite3.connect(self.db_path)
+        
+        try:
+            # 查询因子得分数据
+            query = """
+            SELECT 
+                limit_quality_score,
+                seal_ratio_score,
+                seal_flow_ratio_score,
+                volume_ratio_score,
+                turnover_rate_score,
+                dragon_tiger_score,
+                money_flow_score,
+                amount_rank_score,
+                sector_heat_score,
+                bias_ma3_score
+            FROM stock_factor_scores
+            WHERE trade_date >= date('now', '-30 days')
+            """
+            
+            df = pd.read_sql_query(query, conn)
+            
+            if len(df) < 10:
+                return {'high_correlations': [], 'correlation_matrix': {}}
+            
+            # 计算相关系数矩阵
+            corr_matrix = df.corr()
+            
+            # 找出高相关的因子对 (相关系数 > 0.7)
+            high_corr_pairs = []
+            factor_names = corr_matrix.columns.tolist()
+            
+            for i in range(len(factor_names)):
+                for j in range(i+1, len(factor_names)):
+                    corr_val = corr_matrix.iloc[i, j]
+                    if abs(corr_val) > 0.7:
+                        high_corr_pairs.append({
+                            'factor1': factor_names[i].replace('_score', ''),
+                            'factor2': factor_names[j].replace('_score', ''),
+                            'correlation': round(corr_val, 3)
+                        })
+            
+            # 按相关系数绝对值排序
+            high_corr_pairs.sort(key=lambda x: abs(x['correlation']), reverse=True)
+            
+            return {
+                'high_correlations': high_corr_pairs,
+                'correlation_matrix': corr_matrix.to_dict()
+            }
+            
+        except Exception as e:
+            print(f"因子相关性分析失败: {e}")
+            return {'high_correlations': [], 'correlation_matrix': {}}
+        finally:
+            conn.close()
+    
     def _save_evolution_record(self, optimization: Dict):
         """保存进化记录"""
         try:
@@ -320,13 +424,42 @@ class StrategyEvolutionEngine:
                 factor_ic_values=json.dumps(optimization.get('factor_ics', [])),
                 invalid_factors=json.dumps(optimization.get('invalid_factors', [])),
                 win_rate=optimization.get('win_rate', 0),
-                optimization_notes=json.dumps(optimization.get('recommendations', []))
+                optimization_notes=json.dumps(optimization.get('recommendations', [])),
+                moa_analysis=json.dumps(optimization.get('moa_analysis', {})),
+                final_recommendation=optimization.get('final_recommendation', ''),
+                execution_plan=json.dumps(optimization.get('execution_plan', []))
             )
             self.session.add(record)
             self.session.commit()
         except Exception as e:
             self.session.rollback()
             print(f"保存进化记录失败: {e}")
+            
+            # 检查是否是唯一约束冲突
+            if 'unique constraint' in str(e).lower() and 'id' in str(e).lower():
+                print("检测到ID序列冲突，尝试修复序列...")
+                
+                # 查询当前最大ID
+                max_id = self.session.query(
+                    func.max(StrategyEvolution.id)
+                ).scalar()
+                
+                if max_id:
+                    try:
+                        # 重置序列
+                        self.session.execute(text(
+                            f'ALTER SEQUENCE strategy_evolution_id_seq RESTART WITH {max_id + 1};'
+                        ))
+                        self.session.commit()
+                        print(f"序列已重置为 {max_id + 1}")
+                        
+                        # 尝试重新保存
+                        self.session.add(record)
+                        self.session.commit()
+                        print("进化记录已成功保存!")
+                    except Exception as retry_e:
+                        self.session.rollback()
+                        print(f"重试保存失败: {retry_e}")
     
     def optimize_weights_with_ml(self) -> Dict:
         """
@@ -498,6 +631,50 @@ class BacktestEngine:
             return 0
         
         return np.mean(excess_returns) / np.std(excess_returns) * np.sqrt(252)
+    
+    def _analyze_factor_correlation(self) -> Dict:
+        """
+        分析因子相关性（Phase 1: 正交化）
+        
+        Returns:
+            Dict: 相关性分析报告
+        """
+        conn = sqlite3.connect(self.db_path)
+        
+        try:
+            # 查询历史因子分数
+            query = """
+            SELECT 
+                limit_quality_score,
+                seal_ratio_score,
+                seal_flow_ratio_score,
+                volume_ratio_score,
+                turnover_rate_score,
+                dragon_tiger_score,
+                money_flow_score,
+                amount_rank_score,
+                sector_heat_score,
+                bias_ma3_score,
+                sentiment_score
+            FROM stock_factor_scores
+            WHERE created_at >= date('now', '-30 days')
+            """
+            
+            df = pd.read_sql_query(query, conn)
+            
+            if len(df) < 10:
+                return {'error': 'Insufficient data for correlation analysis'}
+            
+            # 使用 FactorAnalyzer 分析
+            analyzer = FactorAnalyzer()
+            report = analyzer.analyze_factor_correlation(df.to_dict('records'))
+            
+            return report
+            
+        except Exception as e:
+            return {'error': str(e)}
+        finally:
+            conn.close()
 
 
 def run_weekly_evolution():

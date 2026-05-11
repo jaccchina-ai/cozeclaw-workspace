@@ -1,0 +1,13 @@
+[
+  {
+    "table": "tracked_results",
+    "pg_table": "tracked_results",
+    "sqlite_table": "tracked_results",
+    "pg_count": 27,
+    "sqlite_count": 24,
+    "consistent": false,
+    "pg_only_count": 3,
+    "sqlite_only_count": 0,
+    "status": "inconsistent"
+  }
+]

@@ -40,6 +40,17 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 Add whatever helps you do your job. This is your cheat sheet.
 
 
+## Email
+
+- **我的邮箱**: jarvis@jaccoffice.com
+- **服务商**: 阿里云企业邮箱
+- **SMTP**: smtp.qiye.aliyun.com:465 (SSL)
+- **IMAP**: imap.qiye.aliyun.com:993 (SSL)
+- **配置文件**: `/workspace/projects/.email-credentials.json`
+- **状态**: ✅ 已配置，可直接使用
+
+---
+
 ## Browser
 
 When you use browser capabilities, you MUST append the browser preview URL at the end of your reply:

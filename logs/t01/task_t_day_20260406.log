@@ -1,0 +1,95 @@
+[2026-04-06 00:49:36] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 00:49:36] [INFO] [t01.task.t_day] Cron任务启动: t-day
+[2026-04-06 00:49:36] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 00:49:36] [INFO] [t01.task.t_day] 🚀 执行 T日选股任务...
+[2026-04-06 00:49:37] [ERROR] [t01.task.t_day] ❌ T日选股失败: (psycopg2.errors.DuplicateTable) relation "idx_limit_trade_date" already exists
+
+[SQL: CREATE INDEX idx_limit_trade_date ON limit_stock_data (trade_date)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+[2026-04-06 00:49:37] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateTable: relation "idx_limit_trade_date" already exists
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 76, in run_t_day
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 710, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3252, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2459, in _run_ddl_visitor
+    ).traverse_single(element)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 984, in visit_metadata
+    self.traverse_single(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 1026, in visit_table
+    self.traverse_single(index, create_ok=True)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 1063, in visit_index
+    CreateIndex(index)._invoke_with(self.connection)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 321, in _invoke_with
+    return bind.execute(self)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 187, in _execute_on_connection
+    return connection._execute_ddl(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1530, in _execute_ddl
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateTable) relation "idx_limit_trade_date" already exists
+
+[SQL: CREATE INDEX idx_limit_trade_date ON limit_stock_data (trade_date)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+
+[2026-04-06 00:49:37] [INFO] [t01.task.t_day] 任务结束，状态: 失败
+[2026-04-06 00:54:15] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 00:54:15] [INFO] [t01.task.t_day] Cron任务启动: t-day
+[2026-04-06 00:54:15] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 00:54:15] [INFO] [t01.task.t_day] 🚀 执行 T日选股任务...
+[2026-04-06 00:54:16] [INFO] [t01.task.t_day] ⏳ 等待Unifuncs预热任务完成...
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] Cron任务启动: t-day
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] 🚀 执行 T日选股任务...
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] ⏳ 等待Unifuncs预热任务完成...
+[2026-04-06 00:58:45] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] ℹ️ 今日无符合T日选股条件的股票
+[2026-04-06 00:58:45] [INFO] [t01.task.t_day] 任务结束，状态: 成功
+[2026-04-06 20:00:12] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 20:00:12] [INFO] [t01.task.t_day] Cron任务启动: t-day
+[2026-04-06 20:00:12] [INFO] [t01.task.t_day] ============================================================
+[2026-04-06 20:00:12] [INFO] [t01.task.t_day] 🚀 执行 T日选股任务...
+[2026-04-06 20:00:13] [INFO] [t01.task.t_day] ⏳ 等待Unifuncs预热任务完成...
+[2026-04-06 20:00:13] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-06 20:00:13] [INFO] [t01.task.t_day] ℹ️ 今日无符合T日选股条件的股票
+[2026-04-06 20:00:13] [INFO] [t01.task.t_day] 任务结束，状态: 成功

@@ -1,0 +1,86 @@
+[2026-04-24 19:30:12] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-24 19:30:12] [INFO] [t01.task.unifuncs] Cron任务启动: unifuncs
+[2026-04-24 19:30:12] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-24 19:30:12] [INFO] [t01.task.unifuncs] 🚀 执行 Unifuncs 预热任务...
+[2026-04-24 19:30:14] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-24 19:30:59] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-24 19:36:48] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-24 19:36:48] [INFO] [t01.task.unifuncs] Cron任务启动: unifuncs
+[2026-04-24 19:36:48] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-24 19:36:48] [INFO] [t01.task.unifuncs] 🚀 执行 Unifuncs 预热任务...
+[2026-04-24 19:36:49] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-24 19:41:08] [INFO] [t01.task.unifuncs] ✅ Unifuncs 预热完成
+[2026-04-24 19:41:13] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-24 19:41:13] [INFO] [t01.task.unifuncs] Cron任务启动: unifuncs
+[2026-04-24 19:41:13] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-24 19:41:13] [INFO] [t01.task.unifuncs] 🚀 执行 Unifuncs 预热任务...
+[2026-04-24 19:41:15] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-24 19:44:15] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-24 19:52:00] [INFO] [t01.task.unifuncs] ✅ Unifuncs 预热完成
+[2026-04-24 19:52:00] [INFO] [t01.task.unifuncs] ============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 SQLITE 数据库
+[数据库配置] 连接地址: sqlite:////workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/t01_stocks.db
+✅ 监控模块初始化完成
+开始 Unifuncs 预热...
+
+============================================================
+Unifuncs 预热任务 - 2026-04-24 19:36:49.446144
+============================================================
+
+   ✅ 2026-04-24 是交易日
+   创建 Unifuncs 任务...
+   提示词: 2026-04-24A股通达信概念板块的热点是什么？请使用通达信概念板块名称（如：稀土永磁、互联金融、数字货币等，不要用申万行业分类）。在2026-04-24所有涨停股票中，剔除连板数大于3的涨停股后，在下一个交易日能继续涨停概率最大的三个股票是什么？
+   ✅ 任务创建成功，ID: e2f47b35-05ea-4581-9b1e-3eee6e7a141b
+
+   开始轮询任务状态（最多5次，间隔5分钟）...
+
+   第 1/5 次查询...
+   状态: pending
+   等待 5 分钟后继续查询...
+
+   第 2/5 次查询...
+   状态: processing
+   等待 5 分钟后继续查询...
+
+   第 3/5 次查询...
+   状态: processing
+   等待 5 分钟后继续查询...
+
+   第 4/5 次查询...
+   状态: completed
+   ✅ 任务完成！
+   答案长度: 9373
+
+2026-04-24 19:51:53,452 cozeloop._noop _noop.py:67 [WARNING] [cozeloop] Noop client not supported. Invalid parameter. workspace_id is required.
+2026-04-24 19:51:53,452 cozeloop._noop _noop.py:67 [WARNING] [cozeloop] Noop client not supported. Invalid parameter. workspace_id is required.
+   🤖 LLM 解析完成 (模型: doubao-seed-1-6-lite-251015)
+   📊 热点板块: ['锂矿概念', '锂电池概念', '人工智能概念', '氦气概念', '半导体概念']
+   📈 推荐股票: ['001234 泰慕士', '603318 水发燃气', '002240 盛新锂能']
+   ✅ 结构化结果已保存到 /workspace/projects/workspace/tasks/T01-a-stock-leader-selection/unifuncs_result.json
+   📊 热点板块: ['锂矿概念', '锂电池概念', '人工智能概念', '氦气概念', '半导体概念']
+   📈 推荐股票: ['001234 泰慕士', '603318 水发燃气', '002240 盛新锂能']
+   💾 双写结果: ✅ PostgreSQL ✅, SQLite ✅
+✅ Unifuncs 预热完成
+
+[2026-04-24 19:52:00] [INFO] [t01.task.unifuncs] ✅ Unifuncs预热任务完成
+[2026-04-24 19:52:00] [INFO] [t01.task.unifuncs] 任务结束，状态: 成功
+[2026-04-24 19:59:26] [INFO] [t01.task.unifuncs] ✅ Unifuncs 预热完成

@@ -1,0 +1,179 @@
+[2026-04-03 19:30:10] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-03 19:30:10] [INFO] [t01.task.unifuncs] Cron任务启动: unifuncs
+[2026-04-03 19:30:10] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-03 19:30:10] [INFO] [t01.task.unifuncs] 🚀 执行 Unifuncs 预热任务...
+[2026-04-03 19:30:13] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-03 19:50:27] [INFO] [t01.task.unifuncs] ============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 POSTGRES 数据库
+[数据库配置] 连接地址: postgresql://postgres:***@cp-hip-veil-65383f4d.pg5.aidap-global.cn-beijing.volces.com:5432/postgres?sslmode=require
+✅ 监控模块初始化完成
+开始 Unifuncs 预热...
+
+============================================================
+Unifuncs 预热任务 - 2026-04-03 19:30:13.336004
+============================================================
+
+   ✅ 2026-04-03 是交易日
+   创建 Unifuncs 任务...
+   提示词: 2026-04-03A股通达信概念板块的热点是什么？请使用通达信概念板块名称（如：稀土永磁、互联金融、数字货币等，不要用申万行业分类）。在2026-04-03所有涨停股票中，剔除连板数大于3的涨停股后，在下一个交易日能继续涨停概率最大的三个股票是什么？
+   ✅ 任务创建成功，ID: 9361165f-322e-49e6-bf29-0ec061314be5
+
+   开始轮询任务状态（最多5次，间隔5分钟）...
+
+   第 1/5 次查询...
+   状态: pending
+   等待 5 分钟后继续查询...
+
+   第 2/5 次查询...
+   状态: processing
+   等待 5 分钟后继续查询...
+
+   第 3/5 次查询...
+   状态: processing
+   等待 5 分钟后继续查询...
+
+   第 4/5 次查询...
+   状态: processing
+   等待 5 分钟后继续查询...
+
+   第 5/5 次查询...
+   状态: completed
+   ✅ 任务完成！
+   答案长度: 5210
+
+2026-04-03 19:50:21,321 cozeloop._noop _noop.py:67 [WARNING] [cozeloop] Noop client not supported. Invalid parameter. workspace_id is required.
+2026-04-03 19:50:21,321 cozeloop._noop _noop.py:67 [WARNING] [cozeloop] Noop client not supported. Invalid parameter. workspace_id is required.
+   🤖 LLM 解析完成 (模型: doubao-seed-1-6-lite-251015)
+   📊 热点板块: ['国企改革', '华为概念', '人工智能', '新能源汽车', '机器人概念']
+   📈 推荐股票: ['002980 华盛昌', '603067 振华股份', '002952 亚世光电']
+   ✅ 结构化结果已保存到 /workspace/projects/workspace/tasks/T01-a-stock-leader-selection/unifuncs_result.json
+   📊 热点板块: ['国企改革', '华为概念', '人工智能', '新能源汽车', '机器人概念']
+   📈 推荐股票: ['002980 华盛昌', '603067 振华股份', '002952 亚世光电']
+   💾 双写结果: ✅ PostgreSQL ✅, SQLite ✅
+
+[2026-04-03 19:50:27] [ERROR] [t01.task.unifuncs] STDERR: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 56, in run_unifuncs_warmup_task
+    monitor.end_task(log_id, 'success')
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/monitor.py", line 110, in end_task
+    log = self.session.query(TaskExecutionLog).filter_by(id=log_id).first()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT task_execution_logs.id AS task_execution_logs_id, task_execution_logs.task_name AS task_execution_logs_task_name, task_execution_logs.trade_date AS task_execution_logs_trade_date, task_execution_logs.start_time AS task_execution_logs_start_time, task_execution_logs.end_time AS task_execution_logs_end_time, task_execution_logs.duration_seconds AS task_execution_logs_duration_seconds, task_execution_logs.status AS task_execution_logs_status, task_execution_logs.result_count AS task_execution_logs_result_count, task_execution_logs.error_message AS task_execution_logs_error_message, task_execution_logs.details AS task_execution_logs_details, task_execution_logs.created_at AS task_execution_logs_created_at 
+FROM task_execution_logs 
+WHERE task_execution_logs.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 1, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 574, in main
+    run_unifuncs_warmup_task(args.date)
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 59, in run_unifuncs_warmup_task
+    monitor.end_task(log_id, 'failed', error_message=str(e))
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/monitor.py", line 110, in end_task
+    log = self.session.query(TaskExecutionLog).filter_by(id=log_id).first()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+
+[2026-04-03 19:50:27] [ERROR] [t01.task.unifuncs] ❌ Unifuncs预热任务失败
+[2026-04-03 19:50:27] [INFO] [t01.task.unifuncs] 任务结束，状态: 失败

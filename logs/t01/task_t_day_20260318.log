@@ -1,0 +1,60 @@
+[2026-03-18 20:00:27] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:00:27] [INFO] [t01.task.t_day] Cron任务启动: t-day
+[2026-03-18 20:00:27] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:00:27] [INFO] [t01.task.t_day] 🚀 执行 T日选股任务...
+[2026-03-18 20:04:33] [ERROR] [t01.task.t_day] ❌ T日选股失败: [Errno 32] Broken pipe
+[2026-03-18 20:04:33] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 381, in _score_all_stocks
+    linkage_result = calculate_sector_linkage_score(ts_code, date, self.fetcher)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/sector_linkage_factor.py", line 461, in calculate_sector_linkage_score
+    metrics = calculator.calculate_linkage_metrics(ts_code, trade_date)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/sector_linkage_factor.py", line 77, in calculate_linkage_metrics
+    print(f"[SectorLinkage] 无法检测 {ts_code} 所属板块")
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 385, in _score_all_stocks
+    print(f"   ⚠️ 板块联动因子计算失败 {ts_code}: {e}")
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 79, in run_t_day
+    stocks, sentiment = run_t_day_selection()
+                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1083, in run_t_day_selection
+    return engine.run(date)
+           ^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 120, in run
+    scored_stocks = self._score_all_stocks(filtered_stocks, date)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 424, in _score_all_stocks
+    print(f"   ⚠️ 评分失败 {stock_data.get('ts_code', 'unknown')}: {e}")
+BrokenPipeError: [Errno 32] Broken pipe
+
+[2026-03-18 20:04:33] [INFO] [t01.task.t_day] 任务结束，状态: 失败
+[2026-03-18 20:12:12] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:12:12] [INFO] [t01.task.t_day] T01 T日选股任务启动 - 2026-03-18 20:12:12.791857
+[2026-03-18 20:12:12] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:18:35] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:18:35] [INFO] [t01.task.t_day] T01 T日选股任务启动 - 2026-03-18 20:18:35.110705
+[2026-03-18 20:18:35] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:34:35] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:34:35] [INFO] [t01.task.t_day] T01 T日选股任务启动 - 2026-03-18 20:34:35.938300
+[2026-03-18 20:34:35] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:41:33] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:41:33] [INFO] [t01.task.t_day] T01 T日选股任务启动 - 2026-03-18 20:41:33.708878
+[2026-03-18 20:41:33] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 20:43:27] [INFO] [t01.task.t_day] 📊 获取到热点板块: ['F5G概念', '算力租赁', '6G概念', '数字水印', '共封装光学(CPO)']
+[2026-03-18 20:43:27] [INFO] [t01.task.t_day] ✅ T日选股完成，共选出 10 只股票
+[2026-03-18 23:13:35] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 23:13:35] [INFO] [t01.task.t_day] Cron任务启动: t-day
+[2026-03-18 23:13:35] [INFO] [t01.task.t_day] ============================================================
+[2026-03-18 23:13:35] [INFO] [t01.task.t_day] 🚀 执行 T日选股任务...
+[2026-03-18 23:13:52] [INFO] [t01.task.t_day] ✅ T日选股完成，共选出 10 只股票
+[2026-03-18 23:13:52] [INFO] [t01.task.t_day] 任务结束，状态: 成功

@@ -1,0 +1,8 @@
+[2026-04-28 09:00:54] [INFO] [t01.task.deps_check] ============================================================
+[2026-04-28 09:00:54] [INFO] [t01.task.deps_check] T01-Deps-Check 依赖检查 - 2026-04-28 09:00:54.818728
+[2026-04-28 09:00:54] [INFO] [t01.task.deps_check] ============================================================
+[2026-04-28 09:00:54] [INFO] [t01.task.deps_check] ✅ Tushare API 连接正常
+[2026-04-28 09:00:54] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-28 09:00:54] [WARNING] [t01.task.deps_check] ⚠️ T日数据检查: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)
+[2026-04-28 09:00:54] [WARNING] [t01.task.deps_check] ⚠️ 市场情绪检查: cannot access local variable 'session' where it is not associated with a value
+[2026-04-28 09:00:54] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]

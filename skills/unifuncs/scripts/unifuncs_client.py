@@ -109,7 +109,7 @@ class UnifuncsClient:
         url = f"{self.base_url}/v1/create_task"
         
         if messages is None:
-            messages = [{"role": "user", "content": "hi"}]
+            messages = [{"role": "user", "content": output_prompt}]
         
         payload = {
             "model": model or self.default_model,

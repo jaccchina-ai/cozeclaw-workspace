@@ -1,0 +1,4 @@
+2026-04-06 00:51:30,211 - __main__ - ERROR - 初始化Tushare SDK失败: Tushare token未设置，请通过参数或环境变量TUSHARE_TOKEN提供
+2026-04-06 00:51:30,211 - __main__ - ERROR - 执行失败: Tushare token未设置，请通过参数或环境变量TUSHARE_TOKEN提供
+2026-04-06 00:51:50,740 - tushare_direct_sdk - ERROR - 初始化Tushare SDK失败: DataApi.query() got multiple values for argument 'fields'
+2026-04-06 00:52:23,050 - tushare_direct_sdk - ERROR - 初始化Tushare SDK失败: 您的token不对，请确认。

@@ -1,0 +1,602 @@
+[
+  {
+    "timestamp": "2026-05-01 21:00:41",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-01 21:00:44",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-01 21:00:46",
+    "type": "sector_hot",
+    "query": "商业航天概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-01 21:00:49",
+    "type": "sector_hot",
+    "query": "人工智能概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-01 21:00:51",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:17",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:20",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:23",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:25",
+    "type": "sector_hot",
+    "query": "商业航天概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:28",
+    "type": "sector_hot",
+    "query": "人工智能概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:31",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:55",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:00:56",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:01:00",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:01:01",
+    "type": "sector_hot",
+    "query": "商业航天概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:01:03",
+    "type": "sector_hot",
+    "query": "人工智能概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-04 21:01:04",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-05 21:00:11",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-05 21:00:13",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-05 21:00:16",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-05 21:00:17",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-05 21:00:19",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-05 21:01:07",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:00:39",
+    "type": "stock_reason",
+    "query": "合力泰涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:00:42",
+    "type": "risk_alert",
+    "query": "合力泰减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:00:44",
+    "type": "stock_reason",
+    "query": "兴民智通涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:00:47",
+    "type": "risk_alert",
+    "query": "兴民智通减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:00:49",
+    "type": "stock_reason",
+    "query": "汉钟精机涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:01:06",
+    "type": "risk_alert",
+    "query": "汉钟精机减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:01:12",
+    "type": "stock_reason",
+    "query": "德明利涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:01:15",
+    "type": "risk_alert",
+    "query": "德明利减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:01:18",
+    "type": "stock_reason",
+    "query": "大连热电涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:01:21",
+    "type": "risk_alert",
+    "query": "大连热电减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:02:07",
+    "type": "stock_reason",
+    "query": "宇环数控涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:02:10",
+    "type": "stock_reason",
+    "query": "联德股份涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 20:02:13",
+    "type": "stock_reason",
+    "query": "川润股份涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 21:00:24",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 21:00:26",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 21:00:29",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-06 21:00:32",
+    "type": "sector_hot",
+    "query": "商业航天概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:00:45",
+    "type": "stock_reason",
+    "query": "中国长城涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:00:47",
+    "type": "risk_alert",
+    "query": "中国长城减持 风险",
+    "results": 12
+  },
+  {
+    "timestamp": "2026-05-07 20:00:50",
+    "type": "stock_reason",
+    "query": "瑞斯康达涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:00:52",
+    "type": "risk_alert",
+    "query": "瑞斯康达减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:00:55",
+    "type": "stock_reason",
+    "query": "信质集团涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:00:57",
+    "type": "risk_alert",
+    "query": "信质集团减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:00",
+    "type": "stock_reason",
+    "query": "华塑控股涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:03",
+    "type": "risk_alert",
+    "query": "华塑控股减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:04",
+    "type": "stock_reason",
+    "query": "中国长城涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:05",
+    "type": "risk_alert",
+    "query": "中国长城减持 风险",
+    "results": 12
+  },
+  {
+    "timestamp": "2026-05-07 20:01:07",
+    "type": "stock_reason",
+    "query": "瑞斯康达涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:08",
+    "type": "risk_alert",
+    "query": "瑞斯康达减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:10",
+    "type": "stock_reason",
+    "query": "信质集团涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:11",
+    "type": "risk_alert",
+    "query": "信质集团减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:13",
+    "type": "stock_reason",
+    "query": "华塑控股涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:01:14",
+    "type": "risk_alert",
+    "query": "华塑控股减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:02:06",
+    "type": "stock_reason",
+    "query": "武汉凡谷涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:02:09",
+    "type": "stock_reason",
+    "query": "合力泰涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:02:12",
+    "type": "stock_reason",
+    "query": "引力传媒涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 20:02:15",
+    "type": "stock_reason",
+    "query": "伟时电子涨停原因",
+    "results": 12
+  },
+  {
+    "timestamp": "2026-05-07 21:00:15",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:00:18",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:00:21",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:00:23",
+    "type": "sector_hot",
+    "query": "商业航天概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:00:27",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:00:29",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:01:06",
+    "type": "sector_hot",
+    "query": "人工智能概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-07 21:01:08",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:00:47",
+    "type": "stock_reason",
+    "query": "凌云股份涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:00:50",
+    "type": "risk_alert",
+    "query": "凌云股份减持 风险",
+    "results": 13
+  },
+  {
+    "timestamp": "2026-05-08 20:00:52",
+    "type": "stock_reason",
+    "query": "巨轮智能涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:00:55",
+    "type": "risk_alert",
+    "query": "巨轮智能减持 风险",
+    "results": 13
+  },
+  {
+    "timestamp": "2026-05-08 20:00:57",
+    "type": "stock_reason",
+    "query": "大业股份涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:01:00",
+    "type": "risk_alert",
+    "query": "大业股份减持 风险",
+    "results": 13
+  },
+  {
+    "timestamp": "2026-05-08 20:01:02",
+    "type": "stock_reason",
+    "query": "蒙娜丽莎涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:01:05",
+    "type": "risk_alert",
+    "query": "蒙娜丽莎减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:01:07",
+    "type": "stock_reason",
+    "query": "光华股份涨停原因",
+    "results": 14
+  },
+  {
+    "timestamp": "2026-05-08 20:01:10",
+    "type": "risk_alert",
+    "query": "光华股份减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:01:14",
+    "type": "stock_reason",
+    "query": "凌云股份涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:01:16",
+    "type": "risk_alert",
+    "query": "凌云股份减持 风险",
+    "results": 13
+  },
+  {
+    "timestamp": "2026-05-08 20:01:17",
+    "type": "stock_reason",
+    "query": "巨轮智能涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:01:19",
+    "type": "risk_alert",
+    "query": "巨轮智能减持 风险",
+    "results": 13
+  },
+  {
+    "timestamp": "2026-05-08 20:01:20",
+    "type": "stock_reason",
+    "query": "大业股份涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:02:08",
+    "type": "stock_reason",
+    "query": "光华股份涨停原因",
+    "results": 14
+  },
+  {
+    "timestamp": "2026-05-08 20:02:10",
+    "type": "risk_alert",
+    "query": "光华股份减持 风险",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:02:11",
+    "type": "stock_reason",
+    "query": "南威软件涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:02:13",
+    "type": "stock_reason",
+    "query": "宝鼎科技涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:02:14",
+    "type": "stock_reason",
+    "query": "烽火通信涨停原因",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 20:02:16",
+    "type": "stock_reason",
+    "query": "秦安股份涨停原因",
+    "results": 14
+  },
+  {
+    "timestamp": "2026-05-08 20:02:19",
+    "type": "stock_reason",
+    "query": "创力集团涨停原因",
+    "results": 14
+  },
+  {
+    "timestamp": "2026-05-08 21:00:14",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:17",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:19",
+    "type": "sector_hot",
+    "query": "半导体板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:22",
+    "type": "sector_hot",
+    "query": "商业航天概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:25",
+    "type": "sector_hot",
+    "query": "人工智能概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:27",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:31",
+    "type": "sector_hot",
+    "query": "电力板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:00:33",
+    "type": "sector_hot",
+    "query": "新能源板块板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:01:10",
+    "type": "sector_hot",
+    "query": "人工智能概念板块近期新闻",
+    "results": 15
+  },
+  {
+    "timestamp": "2026-05-08 21:01:12",
+    "type": "sector_hot",
+    "query": "数字经济概念板块近期新闻",
+    "results": 15
+  }
+]

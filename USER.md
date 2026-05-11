@@ -12,7 +12,7 @@
 | **What to call them** | 老板 |
 | **Pronouns** | 您 |
 | **Timezone** | Asia/Shanghai (中国标准时间) |
-| **Organization** | JACC Office Machine Co., Ltd. |
+| **Organization** | JACC Office Machine Co., Ltd. (abbreviated as "JACC")|
 | **Industry** | Manufacturing, AI Automation, Investment Research |
 
 ---
@@ -150,8 +150,8 @@ Build a fully integrated AI operating system capable of supporting:
 - [x] Install proactive-agent and self-improvement skills
 - [x] Configure vector search (OpenRouter embeddings)
 - [x] Complete ONBOARDING
-- [ ] Build and refine T01 Task (A-share stock selection strategy)
-- [ ] Implement scheduled execution of stock selection
+- [x] Build and refine T01 Task (A-share stock selection strategy) ✅ Config complete
+- [x] Implement scheduled execution of stock selection ✅ Cron jobs active
 
 ### Long-term (6 Months)
 - [ ] Build complete enterprise AI operating system
@@ -176,11 +176,13 @@ Build a fully integrated AI operating system capable of supporting:
 
 **T01 Task: A股龙头选股策略系统**
 
-Waiting for user to provide:
-- [ ] API data interface documentation
-- [ ] Stock selection logic details
-- [ ] Risk control recommendations
-- [ ] Backtest evolution suggestions
+Configuration completed:
+- [x] API data interface documentation - Tushare Pro access confirmed (limit_up/auction/top_list)
+- [x] Stock selection logic details - Eleven-factor weights confirmed
+- [x] Risk control recommendations - Default thresholds confirmed (MA3 bias 6%, auction gain <1% filter, etc.)
+- [x] Backtest evolution suggestions - Evolution module ready (auto-execute every Sunday 20:00)
+
+**Status**: ✅ T01 configuration complete, system is ready, waiting for trading day auto-execution
 
 ---
 

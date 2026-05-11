@@ -1,0 +1,82 @@
+[
+  {
+    "table": "selection_results",
+    "pg_table": "selection_results",
+    "sqlite_table": "selection_results",
+    "pg_count": 255,
+    "sqlite_count": 255,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "factor_scores",
+    "pg_table": "stock_factor_scores",
+    "sqlite_table": "factor_scores",
+    "pg_count": 521,
+    "sqlite_count": -1,
+    "consistent": false,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "error",
+    "errors": [
+      "无法获取至少一个数据库的记录数"
+    ]
+  },
+  {
+    "table": "auction_data",
+    "pg_table": "auction_data",
+    "sqlite_table": "auction_data",
+    "pg_count": 118,
+    "sqlite_count": 118,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "market_sentiment",
+    "pg_table": "market_sentiment",
+    "sqlite_table": "market_sentiment",
+    "pg_count": 18,
+    "sqlite_count": 18,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "unifuncs_results",
+    "pg_table": "unifuncs_results",
+    "sqlite_table": "unifuncs_results",
+    "pg_count": 8,
+    "sqlite_count": 8,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  },
+  {
+    "table": "tracked_results",
+    "pg_table": "tracked_results",
+    "sqlite_table": "tracked_results",
+    "pg_count": 0,
+    "sqlite_count": 0,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "empty"
+  },
+  {
+    "table": "ml_training_records",
+    "pg_table": "ml_training_records",
+    "sqlite_table": "ml_training_records",
+    "pg_count": 21,
+    "sqlite_count": 21,
+    "consistent": true,
+    "pg_only_count": 0,
+    "sqlite_only_count": 0,
+    "status": "consistent"
+  }
+]

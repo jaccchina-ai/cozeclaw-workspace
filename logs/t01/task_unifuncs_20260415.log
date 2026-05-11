@@ -1,0 +1,71 @@
+[2026-04-15 19:30:11] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-15 19:30:11] [INFO] [t01.task.unifuncs] Cron任务启动: unifuncs
+[2026-04-15 19:30:11] [INFO] [t01.task.unifuncs] ============================================================
+[2026-04-15 19:30:11] [INFO] [t01.task.unifuncs] 🚀 执行 Unifuncs 预热任务...
+[2026-04-15 19:30:13] [INFO] [t01.task.unifuncs] 开始 Unifuncs 预热...
+[2026-04-15 19:40:27] [INFO] [t01.task.unifuncs] ✅ Unifuncs 预热完成
+[2026-04-15 19:40:28] [INFO] [t01.task.unifuncs] ============================================================
+检查依赖状态...
+============================================================
+  ✅ pandas
+  ✅ numpy
+  ✅ sqlalchemy
+  ✅ psycopg2
+  ✅ schedule
+  ✅ tushare
+  ✅ sklearn
+  ✅ scipy
+  ✅ deap
+  ✅ requests
+  ✅ coze_coding_dev_sdk
+  ✅ pptx
+  ✅ langchain_core
+
+已安装: 13/13
+✅ 日志系统初始化完成
+   日志目录: /workspace/projects/workspace/logs/t01
+[数据库配置] 使用 SQLITE 数据库
+[数据库配置] 连接地址: sqlite:////workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/t01_stocks.db
+✅ 监控模块初始化完成
+开始 Unifuncs 预热...
+
+============================================================
+Unifuncs 预热任务 - 2026-04-15 19:30:13.127552
+============================================================
+
+   ✅ 2026-04-15 是交易日
+   创建 Unifuncs 任务...
+   提示词: 2026-04-15A股通达信概念板块的热点是什么？请使用通达信概念板块名称（如：稀土永磁、互联金融、数字货币等，不要用申万行业分类）。在2026-04-15所有涨停股票中，剔除连板数大于3的涨停股后，在下一个交易日能继续涨停概率最大的三个股票是什么？
+   ✅ 任务创建成功，ID: ef548549-a32d-455d-9715-e8accb4b9d16
+
+   开始轮询任务状态（最多5次，间隔5分钟）...
+
+   第 1/5 次查询...
+   状态: pending
+   等待 5 分钟后继续查询...
+
+   第 2/5 次查询...
+   状态: processing
+   等待 5 分钟后继续查询...
+
+   第 3/5 次查询...
+   状态: completed
+   ✅ 任务完成！
+   答案长度: 9565
+
+2026-04-15 19:40:21,892 cozeloop._noop _noop.py:67 [WARNING] [cozeloop] Noop client not supported. Invalid parameter. workspace_id is required.
+2026-04-15 19:40:21,892 cozeloop._noop _noop.py:67 [WARNING] [cozeloop] Noop client not supported. Invalid parameter. workspace_id is required.
+   🤖 LLM 解析完成 (模型: doubao-seed-1-6-lite-251015)
+   📊 热点板块: ['仿制药一致性评价', '医药电商', '重组蛋白', '减肥药', '商业航天']
+   📈 推荐股票: ['002297 博云新材', '301189 奥尼电子', '600664 哈药股份']
+   ✅ 结构化结果已保存到 /workspace/projects/workspace/tasks/T01-a-stock-leader-selection/unifuncs_result.json
+   📊 热点板块: ['仿制药一致性评价', '医药电商', '重组蛋白', '减肥药', '商业航天']
+   📈 推荐股票: ['002297 博云新材', '301189 奥尼电子', '600664 哈药股份']
+[双写] PostgreSQL 保存 Unifuncs 结果失败: duplicate key value violates unique constraint "unifuncs_results_pkey"
+DETAIL:  Key (id)=(9) already exists.
+
+   💾 双写结果: ❌ PostgreSQL ❌, SQLite ✅
+✅ Unifuncs 预热完成
+
+[2026-04-15 19:40:28] [INFO] [t01.task.unifuncs] ✅ Unifuncs预热任务完成
+[2026-04-15 19:40:28] [INFO] [t01.task.unifuncs] 任务结束，状态: 成功

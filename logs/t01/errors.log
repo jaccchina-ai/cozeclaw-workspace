@@ -1,0 +1,1124 @@
+[2026-03-18 09:31:42] [ERROR] [t01.task.t_day] ❌ T日选股任务失败: [Errno 32] Broken pipe
+[2026-03-18 09:31:42] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 81, in run_t_day_task
+    stocks, sentiment = run_t_day_selection(date)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1083, in run_t_day_selection
+    return engine.run(date)
+           ^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 116, in run
+    print(f"   过滤后剩余 {len(filtered_stocks)} 只")
+BrokenPipeError: [Errno 32] Broken pipe
+
+[2026-03-18 15:45:35] [ERROR] [t01.task.track] ❌ 无有效跟踪数据
+[2026-03-18 20:04:33] [ERROR] [t01.task.t_day] ❌ T日选股失败: [Errno 32] Broken pipe
+[2026-03-18 20:04:33] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 381, in _score_all_stocks
+    linkage_result = calculate_sector_linkage_score(ts_code, date, self.fetcher)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/sector_linkage_factor.py", line 461, in calculate_sector_linkage_score
+    metrics = calculator.calculate_linkage_metrics(ts_code, trade_date)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/sector_linkage_factor.py", line 77, in calculate_linkage_metrics
+    print(f"[SectorLinkage] 无法检测 {ts_code} 所属板块")
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 385, in _score_all_stocks
+    print(f"   ⚠️ 板块联动因子计算失败 {ts_code}: {e}")
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 79, in run_t_day
+    stocks, sentiment = run_t_day_selection()
+                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1083, in run_t_day_selection
+    return engine.run(date)
+           ^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 120, in run
+    scored_stocks = self._score_all_stocks(filtered_stocks, date)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 424, in _score_all_stocks
+    print(f"   ⚠️ 评分失败 {stock_data.get('ts_code', 'unknown')}: {e}")
+BrokenPipeError: [Errno 32] Broken pipe
+
+[2026-03-19 15:45:29] [ERROR] [t01.task.track] ❌ 无有效跟踪数据
+[2026-03-20 09:50:18] [ERROR] [t01.task.t1_auction] ❌ 竞价选股失败: 'FileMessenger' object has no attribute '_fmt'
+[2026-03-20 09:50:18] [ERROR] [t01.task.t1_auction] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 59, in run_t1_auction
+    messenger.send_t1_auction_result(stocks, sentiment, date, market_risk)
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/messenger.py", line 662, in send_t1_auction_result
+    message = self._format_t1_auction_message(stocks, sentiment, date, market_risk)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/messenger.py", line 818, in _format_t1_auction_message
+    lines.append(f"\n{emoji} **{stock['ts_code']} {stock['stock_name']}** - 综合得分: {self._fmt(stock.get('final_score', 0))}{wts_mark}")
+                                                                                       ^^^^^^^^^
+AttributeError: 'FileMessenger' object has no attribute '_fmt'
+
+[2026-03-22 20:01:01] [ERROR] [t01.task.evolution] STDERR: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 562, in main
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 623, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3241, in begin
+    with self.connect() as conn:
+         ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3277, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-03-22 20:01:01] [ERROR] [t01.task.evolution] ❌ 策略进化任务失败
+[2026-03-22 20:01:36] [ERROR] [t01.task.evolution] STDERR: Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 562, in main
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 622, in init_db
+    engine = create_engine(DATABASE_URL, **engine_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in create_engine
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 715, in create_engine
+    raise TypeError(
+TypeError: Invalid argument(s) 'check_same_thread' sent to create_engine(), using configuration SQLiteDialect_pysqlite/QueuePool/Engine.  Please check that the keyword arguments are appropriate for this combination of components.
+
+[2026-03-22 20:01:36] [ERROR] [t01.task.evolution] ❌ 策略进化任务失败
+[2026-03-23 16:12:22] [ERROR] [t01.task.track] STDERR: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 562, in main
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 623, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3241, in begin
+    with self.connect() as conn:
+         ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3277, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-03-23 16:12:22] [ERROR] [t01.task.track] ❌ 结果跟踪任务失败
+[2026-03-23 19:30:26] [ERROR] [t01.task.unifuncs] STDERR: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 562, in main
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 623, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3241, in begin
+    with self.connect() as conn:
+         ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3277, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-03-23 19:30:26] [ERROR] [t01.task.unifuncs] ❌ Unifuncs预热任务失败
+[2026-03-23 20:00:28] [ERROR] [t01.task.t_day] ❌ T日选股失败: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-03-23 20:00:28] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 76, in run_t_day
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 623, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3241, in begin
+    with self.connect() as conn:
+         ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3277, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-03-24 19:30:34] [ERROR] [t01.task.unifuncs] STDERR: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 562, in main
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 656, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3241, in begin
+    with self.connect() as conn:
+         ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3277, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-03-24 19:30:34] [ERROR] [t01.task.unifuncs] ❌ Unifuncs预热任务失败
+[2026-03-24 20:00:27] [ERROR] [t01.task.t_day] ❌ T日选股失败: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-03-24 20:00:27] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 76, in run_t_day
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 656, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3241, in begin
+    with self.connect() as conn:
+         ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3277, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 711, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 673, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 899, in __connect
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/pool/base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-04-03 16:10:15] [ERROR] [t01.task.track] ⚠️ 保存机器学习数据失败: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ml_training_records_pkey"
+DETAIL:  Key (id)=(1) already exists.
+
+[SQL: INSERT INTO ml_training_records (t_day, t1_day, t2_day, ts_code, stock_name, t_limit_quality_score, t_seal_ratio_score, t_seal_flow_ratio_score, t_volume_ratio_score, t_turnover_rate_score, t_dragon_tiger_score, t_money_flow_score, t_amount_rank_scor ... 4817 characters truncated ...  sen_counter) ORDER BY sen_counter RETURNING ml_training_records.id, ml_training_records.id AS id__1]
+[parameters: {'t_sector_zt_count__0': 2, 't2_day__0': '20260403', 't_amount_rank_score__0': 2.0, 't_sector_linkage_score__0': 4.375186991869919, 't_seal_ratio_score__0': 4.0, 't_net_buy_amount__0': 230237681.77, 't1_is_weak_to_strong__0': False, 't_money_flow_score__0': 8.0, 't1_open__0': 19.2, 't_sector_heat_score__0': 6.0, 'ts_code__0': '002639.SZ', 't_bias_ma3_score__0': 6.0, 't_seal_flow_ratio__0': 0.0197, 't_day__0': '20260401', 't_turnover_rate__0': 17.82, 'stock_name__0': '雪人集团', 't_total_score__0': 66.78, 't_amount_rank__0': 164, 't1_auction_burst_ratio__0': 0.0298, 't_day_rank__0': None, 't_limit_times__0': 0, 'is_win__0': True, 't2_close__0': 19.8, 't_seal_ratio__0': 0.1104, 'sector__0': '通用设备', 't_turnover_rate_score__0': 8.0, 't1_sector_resonance__0': 2.02, 't1_final_score__0': 70.28, 't_limit_quality_score__0': 5.666666666666667, 't1_auction_volume_ratio__0': 6.71, 't1_auction_score__0': 72.62, 't_volume_ratio_score__0': 10.0, 'created_at__0': datetime.datetime(2026, 4, 3, 16, 10, 15, 589043), 't_sentiment_score__0': 0, 't_main_net_inflow__0': 11288.85, 't_dragon_tiger_score__0': 12.0, 't_bias_ma3__0': 6.09, 't1_auction_turnover__0': 0.56, 't_first_limit_time__0': '14:37:06', 't1_auction_rank__0': 1, 't1_auction_pct_chg__0': 2.02, 't1_auction_price__0': 19.2, 't1_day__0': '20260402', 'return_pct__0': 3.13, 't_volume_ratio__0': 3.08, 'sector_role_label__0': '', 't_seal_flow_ratio_score__0': 4.0, 't_sector_zt_count__1': 6, 't2_day__1': '20260403', 't_amount_rank_score__1': 2.0 ... 41 parameters truncated ... 't_volume_ratio__1': 2.24, 'sector_role_label__1': '', 't_seal_flow_ratio_score__1': 2.0, 't_sector_zt_count__2': 6, 't2_day__2': '20260403', 't_amount_rank_score__2': 2.0, 't_sector_linkage_score__2': 7.180149253731344, 't_seal_ratio_score__2': 8.0, 't_net_buy_amount__2': 0, 't1_is_weak_to_strong__2': False, 't_money_flow_score__2': 5.0, 't1_open__2': 18.8, 't_sector_heat_score__2': 10.0, 'ts_code__2': '002923.SZ', 't_bias_ma3_score__2': 6.0, 't_seal_flow_ratio__2': 0.0258, 't_day__2': '20260401', 't_turnover_rate__2': 3.27, 'stock_name__2': '润都股份', 't_total_score__2': 62.58, 't_amount_rank__2': 164, 't1_auction_burst_ratio__2': 0.3391, 't_day_rank__2': None, 't_limit_times__2': 0, 'is_win__2': False, 't2_close__2': 15.62, 't_seal_ratio__2': 0.7875, 'sector__2': '化学制药', 't_turnover_rate_score__2': 6.0, 't1_sector_resonance__2': 9.05, 't1_final_score__2': 68.59, 't_limit_quality_score__2': 8.666666666666666, 't1_auction_volume_ratio__2': 33.11, 't1_auction_score__2': 72.59, 't_volume_ratio_score__2': 4.0, 'created_at__2': datetime.datetime(2026, 4, 3, 16, 10, 15, 589051), 't_sentiment_score__2': 0, 't_main_net_inflow__2': -3832.05, 't_dragon_tiger_score__2': 5.0, 't_bias_ma3__2': 6.09, 't1_auction_turnover__2': 1.13, 't_first_limit_time__2': '09:36:03', 't1_auction_rank__2': 3, 't1_auction_pct_chg__2': 9.05, 't1_auction_price__2': 18.8, 't1_day__2': '20260402', 'return_pct__2': -16.91, 't_volume_ratio__2': 0.9, 'sector_role_label__2': '', 't_seal_flow_ratio_score__2': 4.0}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2026-04-03 19:50:27] [ERROR] [t01.task.unifuncs] STDERR: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 56, in run_unifuncs_warmup_task
+    monitor.end_task(log_id, 'success')
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/monitor.py", line 110, in end_task
+    log = self.session.query(TaskExecutionLog).filter_by(id=log_id).first()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT task_execution_logs.id AS task_execution_logs_id, task_execution_logs.task_name AS task_execution_logs_task_name, task_execution_logs.trade_date AS task_execution_logs_trade_date, task_execution_logs.start_time AS task_execution_logs_start_time, task_execution_logs.end_time AS task_execution_logs_end_time, task_execution_logs.duration_seconds AS task_execution_logs_duration_seconds, task_execution_logs.status AS task_execution_logs_status, task_execution_logs.result_count AS task_execution_logs_result_count, task_execution_logs.error_message AS task_execution_logs_error_message, task_execution_logs.details AS task_execution_logs_details, task_execution_logs.created_at AS task_execution_logs_created_at 
+FROM task_execution_logs 
+WHERE task_execution_logs.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 1, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 618, in <module>
+    main()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 574, in main
+    run_unifuncs_warmup_task(args.date)
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 59, in run_unifuncs_warmup_task
+    monitor.end_task(log_id, 'failed', error_message=str(e))
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/monitor.py", line 110, in end_task
+    log = self.session.query(TaskExecutionLog).filter_by(id=log_id).first()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+
+[2026-04-03 19:50:27] [ERROR] [t01.task.unifuncs] ❌ Unifuncs预热任务失败
+[2026-04-06 00:49:37] [ERROR] [t01.task.t_day] ❌ T日选股失败: (psycopg2.errors.DuplicateTable) relation "idx_limit_trade_date" already exists
+
+[SQL: CREATE INDEX idx_limit_trade_date ON limit_stock_data (trade_date)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+[2026-04-06 00:49:37] [ERROR] [t01.task.t_day] Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateTable: relation "idx_limit_trade_date" already exists
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/cron_runner.py", line 76, in run_t_day
+    init_db()
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/database/models.py", line 710, in init_db
+    Base.metadata.create_all(engine)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 3252, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2459, in _run_ddl_visitor
+    ).traverse_single(element)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 984, in visit_metadata
+    self.traverse_single(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 1026, in visit_table
+    self.traverse_single(index, create_ok=True)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 1063, in visit_index
+    CreateIndex(index)._invoke_with(self.connection)
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 321, in _invoke_with
+    return bind.execute(self)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/sql/ddl.py", line 187, in _execute_on_connection
+    return connection._execute_ddl(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1530, in _execute_ddl
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateTable) relation "idx_limit_trade_date" already exists
+
+[SQL: CREATE INDEX idx_limit_trade_date ON limit_stock_data (trade_date)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+
+[2026-04-06 00:58:45] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-06 16:10:11] [ERROR] [t01.task.track] ❌ 无有效跟踪数据
+[2026-04-06 20:00:13] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-07 20:00:17] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-08 16:10:09] [ERROR] [t01.task.track] ❌ 无法确定交易日
+[2026-04-08 16:10:17] [ERROR] [t01.task.track] ❌ 无法确定交易日
+[2026-04-08 16:11:09] [ERROR] [t01.task.track] ❌ 无法确定交易日
+[2026-04-08 16:11:22] [ERROR] [t01.task.track] ❌ 无法确定交易日
+[2026-04-08 20:00:12] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-09 16:10:12] [ERROR] [t01.task.track]    ❌ 跟踪 000586.SZ 失败: 您的IP数量超限，最大数量为2个！
+[2026-04-09 16:10:12] [ERROR] [t01.task.track]    ❌ 跟踪 300821.SZ 失败: 您的IP数量超限，最大数量为2个！
+[2026-04-09 16:10:12] [ERROR] [t01.task.track]    ❌ 跟踪 603260.SH 失败: 您的IP数量超限，最大数量为2个！
+[2026-04-09 16:10:12] [ERROR] [t01.task.track] ❌ 无有效跟踪数据
+[2026-04-09 20:00:23] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-10 16:10:16] [ERROR] [t01.task.track]    ❌ 跟踪 002131.SZ 失败: 您的IP数量超限，最大数量为2个！
+[2026-04-10 20:00:14] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-13 07:42:23] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-13 07:42:23] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-13 07:42:36] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-13 07:42:36] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-13 20:00:28] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-14 20:00:15] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-15 20:00:30] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-16 20:00:13] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-17 09:28:13] [ERROR] [t01.task.t1_auction] ❌ T+1竞价选股任务失败: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+[2026-04-17 09:28:13] [ERROR] [t01.task.t1_auction] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1486, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1245, in run
+    config = self._load_auction_judgment_config()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_load_auction_judgment_config'
+
+[2026-04-17 09:34:25] [ERROR] [t01.task.t1_auction] ❌ T+1竞价选股任务失败: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+[2026-04-17 09:34:25] [ERROR] [t01.task.t1_auction] Traceback (most recent call last):
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/main.py", line 268, in run_t1_auction_task
+    stocks = run_t1_auction_selection(date)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1493, in run_t1_auction_selection
+    return engine.run(date, t_day_stocks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py", line 1253, in run
+    top_stocks = self._comprehensive_judgment(scored_stocks, market_risk, config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'T1AuctionEngine' object has no attribute '_comprehensive_judgment'
+
+[2026-04-17 20:00:14] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-20 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-21 01:01:47] [ERROR] [t01.task.track] ⚠️ 保存跟踪结果失败: 'shares_held' is an invalid keyword argument for TrackedResult
+[2026-04-21 16:10:13] [ERROR] [t01.task.track]    ❌ 跟踪 002281.SZ 失败: 'DataFetcher' object has no attribute 'get_next_trading_day'
+[2026-04-21 16:10:13] [ERROR] [t01.task.track]    ❌ 跟踪 603083.SH 失败: 'DataFetcher' object has no attribute 'get_next_trading_day'
+[2026-04-21 16:10:13] [ERROR] [t01.task.track]    ❌ 跟踪 002802.SZ 失败: 'DataFetcher' object has no attribute 'get_next_trading_day'
+[2026-04-21 16:10:13] [ERROR] [t01.task.track] ❌ 无有效跟踪数据
+[2026-04-21 20:00:22] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-22 20:00:12] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-23 18:33:57] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-23 18:33:57] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-23 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-24 09:00:55] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-24 09:00:55] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-24 20:00:24] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-25 07:03:50] [ERROR] [t01.task.deps_check] ❌ 数据库异常: Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+[2026-04-25 07:03:50] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)"]
+[2026-04-27 09:00:31] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-27 09:00:31] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-27 20:00:35] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-28 09:00:54] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-28 09:00:54] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-28 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-29 09:00:48] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-29 09:00:48] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-29 20:00:22] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-04-30 09:00:55] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-04-30 09:00:55] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-04-30 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-01 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-04 09:00:51] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-05-04 09:00:51] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-05-04 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-05 09:00:05] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-05-05 09:00:05] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-05-05 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-06 09:00:38] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-05-06 09:00:38] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-05-06 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-07 09:00:04] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-05-07 09:00:04] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-05-07 20:00:09] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-08 09:00:09] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-05-08 09:00:09] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]
+[2026-05-08 20:00:11] [ERROR] [t01.task.t_day] 等待Unifuncs预热任务失败: 'result_path'
+[2026-05-11 09:00:13] [ERROR] [t01.task.deps_check] ❌ 数据库异常: No module named 'database.db_manager'
+[2026-05-11 09:00:13] [ERROR] [t01.task.deps_check] ❌ T01-Deps-Check 依赖检查失败: ["数据库: No module named 'database.db_manager'", "T日数据: cannot import name 'TDailySelectionEngine' from 'selection_engine' (/workspace/projects/workspace/tasks/T01-a-stock-leader-selection/selection_engine.py)", "市场情绪: cannot access local variable 'session' where it is not associated with a value"]

@@ -15,7 +15,7 @@ import json
 @dataclass
 class FactorWeights:
     """因子权重配置"""
-    # 十一个因子权重 (总和100)
+    # 十二个因子权重 (总和100)
     limit_quality: float = 12.0       # 涨停质量
     seal_ratio: float = 10.0          # 封成比
     seal_flow_ratio: float = 12.0     # 封流比
@@ -27,6 +27,7 @@ class FactorWeights:
     sector_heat: float = 8.0          # 热点板块
     bias_ma3: float = 6.0             # MA3乖离率(风控)
     sentiment: float = 6.0            # 舆情分析(附加)
+    sector_linkage: float = 10.0      # 板块联动强度
 
 
 @dataclass
@@ -47,6 +48,7 @@ class StockScore:
     sector_heat_score: float = 0
     bias_ma3_score: float = 0
     sentiment_score: float = 0
+    sector_linkage_score: float = 0  # 板块联动强度得分
     
     # 总分
     total_score: float = 0
@@ -290,7 +292,7 @@ class ScoringModel:
     
     def score_dragon_tiger(self, dragon_tiger_data: Dict, north_data: Dict) -> Tuple[float, Dict]:
         """
-        龙虎榜和北向资金评分
+        龙虎榜和北向资金评分（增强版 - 支持游资画像）
         
         Args:
             dragon_tiger_data: 龙虎榜数据
@@ -299,6 +301,34 @@ class ScoringModel:
         Returns:
             (得分, 原始值字典)
         """
+        # 检查是否有游资管理器的增强评分
+        if dragon_tiger_data and 'hot_money_score' in dragon_tiger_data:
+            # 使用游资管理器的评分
+            score = dragon_tiger_data['hot_money_score']
+            details = dragon_tiger_data.get('hot_money_details', {})
+            
+            raw = {
+                'net_buy': dragon_tiger_data.get('net_buy', 0),
+                'institution_net_buy': dragon_tiger_data.get('institution_net_buy', 0),
+                'hot_money_seats': details.get('hot_money_seats', []),
+                'hot_money_names': details.get('hot_money_names', []),
+                'institution_seats': details.get('institution_seats', []),
+                'quant_seats': details.get('quant_seats', []),
+                'north_net': north_data.get('total_net', 0),
+                'top_influence': details.get('top_influence', 0),
+                'total_follow_value': details.get('total_follow_value', 0)
+            }
+            
+            # 北向资金增仓: +1分
+            if raw['north_net'] > 0:
+                score += 1
+            
+            # 限制分数范围
+            score = max(0, min(15, score))
+            
+            return score, raw
+        
+        # 原有评分逻辑（兼容旧数据）
         score = 5  # 默认基础分
         raw = {
             'net_buy': dragon_tiger_data.get('net_buy', 0),
@@ -324,9 +354,6 @@ class ScoringModel:
         # 有量化席位: -2分
         if raw['quant_seats']:
             score -= 2
-        
-        # 买一席位买入量 > 总成交20% (一家独大): -2分
-        # (需要更详细数据来判断)
         
         # 北向资金增仓: +1分
         if raw['north_net'] > 0:
@@ -536,7 +563,8 @@ class ScoringModel:
             stock.amount_rank_score * self.weights.amount_rank / 10 +
             stock.sector_heat_score * self.weights.sector_heat / 10 +
             stock.bias_ma3_score * self.weights.bias_ma3 / 10 +
-            stock.sentiment_score * self.weights.sentiment / 10
+            stock.sentiment_score * self.weights.sentiment / 10 +
+            stock.sector_linkage_score * self.weights.sector_linkage / 10
         )
         
         return round(total, 2)
@@ -651,6 +679,13 @@ class ScoringModel:
             score.unifuncs_recommended = True
             score.raw_values.update(raw)
         
+        # 12. 板块联动强度评分
+        sector_linkage_score = stock_data.get('sector_linkage_score', 0)
+        if sector_linkage_score > 0:
+            # 将 0-100 映射到 0-10
+            score.sector_linkage_score = sector_linkage_score / 10
+            score.raw_values['sector_linkage_raw'] = stock_data.get('sector_linkage_raw', {})
+        
         # 计算总分
         score.total_score = self.calculate_total_score(score)
         
@@ -717,7 +752,13 @@ class AuctionScoringModel:
         }
         
         scores = {}
-        
+
+        # 保存原始竞价价格到 raw_values
+        result['raw_values']['auction_price'] = auction_data.get('auction_price', 0)
+        result['raw_values']['pre_close'] = auction_data.get('pre_close', 0)
+        result['raw_values']['float_share'] = auction_data.get('float_share', 0)
+        result['raw_values']['auction_vol'] = auction_data.get('auction_vol', 0)
+
         # 1. 竞价换手率评分
         auction_turnover = auction_data.get('auction_turnover', 0)
         if auction_turnover > 5:
@@ -815,6 +856,9 @@ class AuctionScoringModel:
         
         # 最终评分 = 竞价评分 * 0.6 + T日评分 * 0.4
         result['final_score'] = round(result['auction_score'] * 0.6 + t_day_score * 0.4, 2)
+        
+        # 保存各因子评分（用于ML训练）
+        result['scores'] = scores
         
         return result
     
